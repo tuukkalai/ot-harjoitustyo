@@ -1,0 +1,113 @@
+commit 764c7e14d8d92e1f25984c8179a26e4733df51ae
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 10:57:37 2020 +0200
+
+    Tiedostojen poistoa ja uudelleennimeämistä
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 96671e454e13202df2ea9eef09e50c7304d4af03
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 10:53:35 2020 +0200
+
+    Lisää git harjoittelua
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit dca0265ab78c9f79d1a1e8e6b75bf07855b18c3d
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:33:45 2020 +0200
+
+    git add -p treeni
+
+ eka.txt    |  7 +++++--
+ kolmas.txt | 22 +++++++++++-----------
+ 2 files changed, 16 insertions(+), 13 deletions(-)
+
+commit f019dbf560cccafca7e3964eac0d3860244e7ee6
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:26:58 2020 +0200
+
+    tiedosto.txt -> eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 62c6f9ea16a5bf8f66dee678e693e835a51def76
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:24:50 2020 +0200
+
+    toinen.txt poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit e114caeb41bb7accf380be45bb8ead33e6712b2e
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:21:14 2020 +0200
+
+    Kolmas kappale tiedosto.txt:iin
+
+ tiedosto.txt | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+commit 43fc9c1b21a95effacf7286d9b9569e64780b9f7
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:18:10 2020 +0200
+
+    tiedosto.txt päivitys
+
+ tiedosto.txt | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
+
+commit 45e546845157c1728ae91def137f0ec57ae5181c
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:10:46 2020 +0200
+
+    kansiorakennetta päivitetty
+
+ stuff/joku_tiedosto | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit c0f17c0c7a9fbf4ec3fa2961abc294c16dfeeff3
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:08:53 2020 +0200
+
+    toinen ja kolmas päivitetty
+
+ kolmas.txt | 13 +++++++++++++
+ toinen.txt |  1 +
+ 2 files changed, 14 insertions(+)
+
+commit 18d11af53ebbfcec4d41da4e27ce4cf942c6e065
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 09:05:30 2020 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 0a6c99163fc26176003e1aa09d619fe34ebc2c89
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 08:56:52 2020 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit d7580a8b72d522def2bfb552fc1c81221d754e98
+Author: Tuukka Laitinen <tuukka.mj.laitinen@gmail.com>
+Date:   Tue Oct 27 08:55:03 2020 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
