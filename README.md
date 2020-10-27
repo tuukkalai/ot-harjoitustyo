@@ -7,4 +7,4 @@
 - [gitlog.txt](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
 - [komentorivi.txt](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko1/komentorivi.txt)
 
-[//]: # (Kommentti?)
+[//]: # (Paikallinen muutos kommenttiin)
