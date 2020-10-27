@@ -1,3 +1,8 @@
-# Ohjelmistotekniikka
+# Ohjelmistotekniikka, harjoitustyö
 
-Repository for "**Ohjelmistotekniikka**" -course in *University of Helsinki*.
+## Tehtävät
+
+### Viikko 1
+
+- [gitlog.txt](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
+- [komentorivi.txt](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko1/komentorivi.txt)
