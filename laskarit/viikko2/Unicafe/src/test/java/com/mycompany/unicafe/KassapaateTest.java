@@ -53,21 +53,20 @@ public class KassapaateTest {
     }
     
     @Test
-    public void edullinenLounasOstoLiianVahanRahaa() {
+    public void edullinenLounasOstoKateinenLiianVahanRahaa() {
         int vaihtoraha = kassa.syoEdullisesti(200);
         assertThat(vaihtoraha, is(200));
         assertThat(kassa.edullisiaLounaitaMyyty(), is(0));
         assertThat(kassa.kassassaRahaa(), is(100000));
-    }
-    
+    }    
     
     @Test
     public void edullinenLounasOstoKortti() {
         Maksukortti kortti = new Maksukortti(1000);
         boolean maksu = kassa.syoEdullisesti(kortti);
         assertThat(maksu, is(true));
+        assertThat(kortti.saldo(), is(760));
         assertThat(kassa.edullisiaLounaitaMyyty(), is(1));
-        // Korttiosto ei lisää rahaa (käteistä) kassaan
         assertThat(kassa.kassassaRahaa(), is(100000));
     }
     
@@ -76,17 +75,97 @@ public class KassapaateTest {
         Maksukortti kortti = new Maksukortti(238);
         boolean maksu = kassa.syoEdullisesti(kortti);
         assertThat(maksu, is(false));
+        assertThat(kortti.saldo(), is(238));
         assertThat(kassa.edullisiaLounaitaMyyty(), is(0));
         assertThat(kassa.kassassaRahaa(), is(100000));
     }
-//    jos maksu on riittävä: myytyjen lounaiden määrä kasvaa
-//    jos maksu ei ole riittävä: kassassa oleva rahamäärä ei muutu, kaikki rahat palautetaan vaihtorahana ja myytyjen lounaiden määrässä ei muutosta
-//    seuraavissa testeissä tarvitaan myös Maksukorttia jonka oletetaan toimivan oikein
-//    korttiosto toimii sekä edullisten että maukkaiden lounaiden osalta
-//    jos kortilla on tarpeeksi rahaa, veloitetaan summa kortilta ja palautetaan true
-//    jos kortilla on tarpeeksi rahaa, myytyjen lounaiden määrä kasvaa
-//    jos kortilla ei ole tarpeeksi rahaa, kortin rahamäärä ei muutu, myytyjen lounaiden määrä muuttumaton ja palautetaan false
-//    kassassa oleva rahamäärä ei muutu kortilla ostettaessa
+    
+    @Test
+    public void edullinenLounasOstoKateinenTasaraha() {
+        int vaihtoraha = kassa.syoEdullisesti(240);
+        assertThat(vaihtoraha, is(0));
+        assertThat(kassa.edullisiaLounaitaMyyty(), is(1));
+        assertThat(kassa.kassassaRahaa(), is(100240));
+    }    
+    
+    @Test
+    public void edullinenLounasOstoKorttiTasaraha() {
+        Maksukortti kortti = new Maksukortti(240);
+        boolean maksu = kassa.syoEdullisesti(kortti);
+        assertThat(maksu, is(true));
+        assertThat(kortti.saldo(), is(0));
+        assertThat(kassa.edullisiaLounaitaMyyty(), is(1));
+        assertThat(kassa.kassassaRahaa(), is(100000));
+    }
+        
+    @Test
+    public void maukasLounasOstoKateinen() {
+        int vaihtoraha = kassa.syoMaukkaasti(500);
+        assertThat(vaihtoraha, is(100));
+        assertThat(kassa.maukkaitaLounaitaMyyty(), is(1));
+        assertThat(kassa.kassassaRahaa(), is(100400));
+    }
+    
+    @Test
+    public void maukasLounasOstoKateinenLiianVahanRahaa() {
+        int vaihtoraha = kassa.syoMaukkaasti(300);
+        assertThat(vaihtoraha, is(300));
+        assertThat(kassa.maukkaitaLounaitaMyyty(), is(0));
+        assertThat(kassa.kassassaRahaa(), is(100000));
+    }    
+    
+    @Test
+    public void maukasLounasOstoKortti() {
+        Maksukortti kortti = new Maksukortti(1000);
+        boolean maksu = kassa.syoMaukkaasti(kortti);
+        assertThat(maksu, is(true));
+        assertThat(kortti.saldo(), is(600));
+        assertThat(kassa.maukkaitaLounaitaMyyty(), is(1));
+        assertThat(kassa.kassassaRahaa(), is(100000));
+    }
+    
+    @Test
+    public void maukasLounasOstoKorttiLiianVahanRahaa() {
+        Maksukortti kortti = new Maksukortti(238);
+        boolean maksu = kassa.syoMaukkaasti(kortti);
+        assertThat(maksu, is(false));
+        assertThat(kortti.saldo(), is(238));
+        assertThat(kassa.maukkaitaLounaitaMyyty(), is(0));
+        assertThat(kassa.kassassaRahaa(), is(100000));
+    }
+    
+    @Test
+    public void maukasLounasOstoKateinenTasaraha() {
+        int vaihtoraha = kassa.syoMaukkaasti(400);
+        assertThat(vaihtoraha, is(0));
+        assertThat(kassa.maukkaitaLounaitaMyyty(), is(1));
+        assertThat(kassa.kassassaRahaa(), is(100400));
+    }    
+    
+    @Test
+    public void maukasLounasOstoKorttiTasaraha() {
+        Maksukortti kortti = new Maksukortti(400);
+        boolean maksu = kassa.syoMaukkaasti(kortti);
+        assertThat(maksu, is(true));
+        assertThat(kortti.saldo(), is(0));
+        assertThat(kassa.maukkaitaLounaitaMyyty(), is(1));
+        assertThat(kassa.kassassaRahaa(), is(100000));
+    }
+    
 //    kortille rahaa ladattaessa kortin saldo muuttuu ja kassassa oleva rahamäärä kasvaa ladatulla summalla
-
+    @Test
+    public void lataaRahaaKortille() {
+        Maksukortti kortti = new Maksukortti(200);
+        kassa.lataaRahaaKortille(kortti, 600);
+        assertThat(kortti.saldo(), is(800));
+        assertThat(kassa.kassassaRahaa(), is(100600));
+    }
+    
+    @Test
+    public void lataaNegatiivinenMaaraRahaaKortille() {
+        Maksukortti kortti = new Maksukortti(200);
+        kassa.lataaRahaaKortille(kortti, -200);
+        assertThat(kortti.saldo(), is(200));
+        assertThat(kassa.kassassaRahaa(), is(100000));
+    }
 }
