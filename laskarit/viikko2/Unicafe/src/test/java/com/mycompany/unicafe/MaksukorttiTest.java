@@ -1,7 +1,6 @@
 package com.mycompany.unicafe;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -32,11 +31,11 @@ public class MaksukorttiTest {
         assertThat(kortti.toString(), is("saldo: 25.0"));
     }
     
-//    @Test
-//    public void negatiivinenLatausEiMuutaSaldoa() {
-//        kortti.lataaRahaa(-400);
-//        assertThat(kortti.toString(), is("saldo: 10.0"));
-//    }
+    @Test
+    public void negatiivinenLatausEiMuutaSaldoa() {
+        kortti.lataaRahaa(-400);
+        assertThat(kortti.toString(), is("saldo: 10.0"));
+    }
 
     @Test
     public void saldoVaheneeOikeinJosRahaaOnTarpeeksi() {
@@ -49,6 +48,13 @@ public class MaksukorttiTest {
         kortti.otaRahaa(700);
         kortti.otaRahaa(400);
         assertThat(kortti.toString(), is("saldo: 3.0"));
+    }
+    
+    @Test
+    public void negatiivinenOttoEiMuutaSaldoa() {
+        boolean otto = kortti.otaRahaa(-50);
+        assertThat(otto, is(false));
+        assertThat(kortti.toString(), is("saldo: 10.0"));
     }
     
     @Test
