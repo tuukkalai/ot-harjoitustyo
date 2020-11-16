@@ -12,7 +12,7 @@ Sovelluksella on vain yksi käyttäjärooli, normaali käyttäjä. Sovelluksessa
 
 Sovellus koostuu viidestä eri näkymästä
 
-<img src="https://raw.githubusercontent.com/tuukkalai/ot-harjoitustyo/tree/main/dokumentaatio/kuvat/kayttoliittyma_luonnos.png" width="750">
+<img src="https://github.com/tuukkalai/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/kayttoliittyma_luonnos_s.png?raw=true" width="750">
 
 Sovellus aukeaa aloitusvalikkoon, josta on mahdollista aloittaa uusi peli, siirtyä tarkistelemaan pistetilastoja tai poistua sovelluksesta.
 
