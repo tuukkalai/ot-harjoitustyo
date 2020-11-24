@@ -9,7 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -19,14 +18,16 @@ import javafx.stage.Stage;
  */
 public class Menu {
     private Stage stage;
+    private double viewWidth;
+    private double viewHeight;
 
     public Menu(Stage stage) {
         this.stage = stage;
+        this.viewWidth = stage.getWidth();
+        this.viewHeight = stage.getHeight();
     }
 
     public void activate() {
-        stage.setWidth(800);
-        stage.setHeight(800);
         stage.setResizable(false);
         stage.getScene().setRoot(buildScene());
 

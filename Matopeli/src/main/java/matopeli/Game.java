@@ -27,13 +27,15 @@ public class Game {
 
     static Scene mainScene;
     static GraphicsContext graphicsContext;
-    static int WIDTH = 512;
-    static int HEIGHT = 256;
+    static double viewWidth;
+    static double viewHeight;
 
     static HashSet<String> currentlyActiveKeys;
 
     public Game(Stage stage) {
         this.stage = stage;
+        this.viewWidth = stage.getWidth();
+        this.viewHeight = stage.getHeight();
     }
 
     public void start() {
@@ -41,7 +43,7 @@ public class Game {
         Scene theScene = new Scene(root);
         stage.setScene(theScene);
 
-        Canvas canvas = new Canvas(800, 800);
+        Canvas canvas = new Canvas(this.viewWidth, this.viewHeight);
         root.getChildren().add(canvas);
 
         ArrayList<String> input = new ArrayList<String>();
