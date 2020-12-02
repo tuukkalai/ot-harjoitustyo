@@ -1,6 +1,10 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-# Dokumentaatio
+## Release
+
+[Viikon 5 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/viikko5)
+
+## Dokumentaatio
 
 [Vaatimusmäärittely](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 
