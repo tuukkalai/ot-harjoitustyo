@@ -24,3 +24,39 @@
 - [Unicafe Kassapäätteen testit](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko2/Unicafe/src/test/java/com/mycompany/unicafe/KassapaateTest.java)
 
 <img src="https://raw.githubusercontent.com/tuukkalai/ot-harjoitustyo/main/laskarit/viikko2/jacoco_testiraportti.png" width="750">
+
+## Sovelluksen komennot
+
+### Testaus
+
+Testit voidaan ajaa komennolla
+
+```sh
+mvn test
+```
+
+### Sovelluksen suoritus
+
+Sovelluksen voi suorittaa komennolla
+
+```sh
+mvn compile exec:java -Dexec.mainClass=matopeli.Main
+```
+
+Jar-tiedoston saa luotua komennolla
+
+```sh
+mvn package
+```
+
+Generoitu jar-tiedosto löytyy target -hakemiston alta.
+
+### Checkstyle
+
+Checkstyle saadaan ajettua komennolla
+
+```sh
+mvn jxr:jxr checkstyle:checkstyle
+```
+
+Checkstylen muodostama tiedosto löytyy hakemistosta target/site/checkstyle.html
