@@ -51,6 +51,38 @@ public class Matopeli extends Application {
         }
     }
     
+    public static class GameScene {
+        Group root;
+        Scene gameScene;
+        Canvas canvas;
+        GraphicsContext gc;
+        
+        public GameScene() {
+            this.root = new Group();
+            this.gameScene = new Scene(root);
+            this.canvas = new Canvas(viewWidth, viewHeight);
+            this.root.getChildren().add(canvas);
+        }
+        
+        public Scene getGameScene() {
+            return this.gameScene;
+        }
+        
+        public GraphicsContext getGraphicsContext() {
+            return this.canvas.getGraphicsContext2D();
+        }
+        
+        public void newGame() {
+            //this.root = null;
+            //this.gameScene = null;
+            //this.canvas = null;
+            this.root = new Group();
+            this.gameScene = new Scene(root);
+            this.canvas = new Canvas(viewWidth, viewHeight);
+            this.root.getChildren().add(canvas);
+        }
+    }
+    
     @Override
     public void start(Stage stage) {
 
@@ -73,11 +105,12 @@ public class Matopeli extends Application {
         
 
         // Game scene set-up
-        Group root = new Group();
-        Scene gameScene = new Scene(root);
-        Canvas canvas = new Canvas(viewWidth, viewHeight);
-        root.getChildren().add(canvas);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+//        Group root = new Group();
+//        Scene gameScene = new Scene(root);
+//        Canvas canvas = new Canvas(viewWidth, viewHeight);
+//        root.getChildren().add(canvas);
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+        GameScene gameScene = new GameScene();
         
         // To the stats page
         Button statsBtn = new Button();
@@ -119,41 +152,49 @@ public class Matopeli extends Application {
             
             @Override
             public void handle(long currentTime) {
-                
-                if (previousTime == 0) {
+                if (previousTime == 1) {
+                    // Create new game if previousTime equals 0
                     previousTime = currentTime;
-                    tick(gc);
+                    tick(gameScene.getGraphicsContext());
                     return;
                 }
 
                 if (currentTime - previousTime > 1_000_000_000L / speed) {
                     previousTime = currentTime;
-                    tick(gc);
-                    if(gc.getGlobalAlpha() == 6.6){
+                    tick(gameScene.getGraphicsContext());
+                    if(gameScene.getGraphicsContext().getGlobalAlpha() == 6.6){
                         stopTimer(currentTime);
-                        stop();
+                        stop();                        
                     }
                 }
             }
             
             public void stopTimer(long currentTime){
                 System.out.println("Stop called / Game ended");
+                previousTime = 0;
                 stage.setScene(statsScene);
             }
         };
-        
-        // Render starting snake
-        snake.add(new Snake(5 * gridCell + 1, viewHeight / 2 + 1));
-        snake.add(new Snake(4 * gridCell + 1, viewHeight / 2 + 1));
-        snake.add(new Snake(3 * gridCell + 1, viewHeight / 2 + 1));
         
         stage.show();
 
         startBtn.setOnAction(e -> {
             System.out.println("Play btn clicked");
+            System.out.println("GameScene ennen: " + gameScene.getGameScene().toString() + " " + gameScene.getGraphicsContext().toString());
+            gameScene.newGame();
             
-            keyboardSetUp(gameScene);
-            stage.setScene(gameScene);
+            gameOver = false;
+            dir = "RIGHT";
+            
+            // Render starting snake
+            snake.clear();
+            snake.add(new Snake(5 * gridCell + 1, viewHeight / 2 + 1));
+            snake.add(new Snake(4 * gridCell + 1, viewHeight / 2 + 1));
+            snake.add(new Snake(3 * gridCell + 1, viewHeight / 2 + 1));
+            
+            System.out.println("GameScene nyt: " + gameScene.getGameScene().toString() + " " + gameScene.getGraphicsContext().toString());
+            keyboardSetUp(gameScene.getGameScene());
+            stage.setScene(gameScene.getGameScene());
             
             animTimer.start();
         });
@@ -250,6 +291,16 @@ public class Matopeli extends Application {
             //System.out.println("Direction : " + dir);
         });
     }
+//    
+//    private Scene createGameScene() {
+//        // Game scene set-up
+//        this.root = new Group();
+//        Canvas canvas = new Canvas(viewWidth, viewHeight);
+//        Scene gameScene = new Scene(root);
+//        root.getChildren().add(canvas);
+//        GraphicsContext gc = canvas.getGraphicsContext2D();
+//        return gameScene;
+//    }
 
     @Override
     public void stop() {
