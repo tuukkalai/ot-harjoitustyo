@@ -8,5 +8,7 @@
 | 02.12. | 4    | Checkstylen liittäminen, viikon 5 harjoitusten lisäämistä, debuggausta |
 | 05.12. | 1    | Madon liikkeen bugien korjaaminen |
 | 08.12  | 5    | Madon korjaaminen, scenejen luonti ja linkittäminen |
-| yht.   | 19   | | 
+| 15.12. | 2    | JavaFX scenejen, groupien, canvasien, roottien, graphicsContextien, jne. opiskelua |
+| 16.12. | 5    | Uuden pelin aloittaminen edellisen päätyttyä, luokkien refaktorointia |
+| yht.   | 26   | | 
 

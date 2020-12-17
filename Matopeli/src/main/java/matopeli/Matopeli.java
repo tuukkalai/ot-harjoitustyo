@@ -17,6 +17,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import matopeli.ui.Snake;
+
 
 /**
  *
@@ -28,6 +30,7 @@ public class Matopeli extends Application {
     public int speed = 5;
     public int tickCall = 0;
     public boolean gameOver = false;
+    public boolean gamePaused = false;
     
     static int viewWidth = 600;
     static int viewHeight = 600;
@@ -37,6 +40,7 @@ public class Matopeli extends Application {
     // Starting direction
     String dir = "RIGHT";
     
+    /*
     public static class Snake {
         int x;
         int y;
@@ -50,6 +54,7 @@ public class Matopeli extends Application {
             this.height = gridCell - 2;
         }
     }
+*/
     
     public static class GameScene {
         Group root;
@@ -73,9 +78,6 @@ public class Matopeli extends Application {
         }
         
         public void newGame() {
-            //this.root = null;
-            //this.gameScene = null;
-            //this.canvas = null;
             this.root = new Group();
             this.gameScene = new Scene(root);
             this.canvas = new Canvas(viewWidth, viewHeight);
@@ -134,7 +136,6 @@ public class Matopeli extends Application {
         statsGrid.setVgap(10);
         
         Scene statsScene = new Scene(statsGrid, viewWidth, viewHeight);
-        
 
         // Exit the game
         Button exit = new Button();
@@ -170,7 +171,6 @@ public class Matopeli extends Application {
             }
             
             public void stopTimer(long currentTime){
-                System.out.println("Stop called / Game ended");
                 previousTime = 0;
                 stage.setScene(statsScene);
             }
@@ -179,8 +179,6 @@ public class Matopeli extends Application {
         stage.show();
 
         startBtn.setOnAction(e -> {
-            System.out.println("Play btn clicked");
-            System.out.println("GameScene ennen: " + gameScene.getGameScene().toString() + " " + gameScene.getGraphicsContext().toString());
             gameScene.newGame();
             
             gameOver = false;
@@ -192,36 +190,37 @@ public class Matopeli extends Application {
             snake.add(new Snake(4 * gridCell + 1, viewHeight / 2 + 1));
             snake.add(new Snake(3 * gridCell + 1, viewHeight / 2 + 1));
             
-            System.out.println("GameScene nyt: " + gameScene.getGameScene().toString() + " " + gameScene.getGraphicsContext().toString());
             keyboardSetUp(gameScene.getGameScene());
             stage.setScene(gameScene.getGameScene());
             
             animTimer.start();
         });
         statsBtn.setOnMouseClicked(e -> {
-            System.out.println("Stats btn clicked");
             stage.setScene(statsScene);
         });
         exit.setOnMouseClicked(e -> {
-            System.out.println("Exit btn clicked");
             stage.close();
         });
         backBtn.setOnMouseClicked(e -> {
-            System.out.println("Back to main menu btn clicked");
             stage.setScene(menuScene);
         });
-        
     }
     
     public void tick(GraphicsContext gc) {
         
-        //gc.clearRect(0, gridCell, viewWidth, viewHeight-gridCell);
+        if (gamePaused) {
+            gc.setGlobalAlpha(3.0);
+			gc.setFill(Color.BLACK);
+			gc.setFont(new Font("", 20));
+			gc.fillText("Tauko", (viewWidth / 2) - 50, (viewHeight / 2) - 10);
+			return;
+        }
         
         if (gameOver) {
             gc.setGlobalAlpha(6.6);
 			gc.setFill(Color.BLACK);
 			gc.setFont(new Font("", 20));
-			gc.fillText("Peli loppui", (viewWidth/2)-50, (viewHeight/2)-10);
+			gc.fillText("Peli loppui", (viewWidth / 2) - 50, (viewHeight / 2) - 10);
 			return;
 		}
 
@@ -233,7 +232,7 @@ public class Matopeli extends Application {
         switch (dir) {
             case "RIGHT":
                 snake.get(0).x += gridCell;
-                if(snake.get(0).x > (viewWidth-gridCell)){
+                if(snake.get(0).x > (viewWidth - gridCell)){
                     gameOver = true;
                 }
                 break;
@@ -245,13 +244,13 @@ public class Matopeli extends Application {
                 break;
             case "UP":
                 snake.get(0).y -= gridCell;
-                if(snake.get(0).y < 2*gridCell){
+                if(snake.get(0).y < 2 * gridCell){
                     gameOver = true;
                 }
                 break;
             case "DOWN":
                 snake.get(0).y += gridCell;
-                if(snake.get(0).x > (viewHeight-gridCell)){
+                if(snake.get(0).x > (viewHeight - gridCell)){
                     gameOver = true;
                 }
                 break;
@@ -262,7 +261,7 @@ public class Matopeli extends Application {
         gc.fillRect(0, gridCell, viewWidth, viewHeight - gridCell);
 
         gc.setFill(Color.WHITE);
-        gc.fillRect(gridCell, 2*gridCell, viewWidth - 2*gridCell, viewHeight - 3*gridCell);
+        gc.fillRect(gridCell, 2 * gridCell, viewWidth - 2 * gridCell, viewHeight - 3 * gridCell);
 
         // Snake color
         for (Snake s : snake) {
@@ -273,38 +272,52 @@ public class Matopeli extends Application {
     
     private void keyboardSetUp(Scene scene) {
         scene.setOnKeyPressed((KeyEvent e) -> {
-            if (e.getCode() == KeyCode.LEFT) {
-                dir = "LEFT";
-            }
+            if(!gamePaused){
+                if (e.getCode() == KeyCode.LEFT) {
+                    if (dir == "RIGHT") {
+                        dir = "RIGHT";
+                    } else {
+                        dir = "LEFT";
+                    }
+                }
 
-            if (e.getCode() == KeyCode.RIGHT) {
-                dir = "RIGHT";
-            }
+                if (e.getCode() == KeyCode.RIGHT) {
+                    if (dir == "LEFT") {
+                        dir = "LEFT";
+                    } else {
+                        dir = "RIGHT";
+                    }
+                }
 
-            if (e.getCode() == KeyCode.DOWN) {
-                dir = "DOWN";
-            }
+                if (e.getCode() == KeyCode.DOWN) {
+                    if (dir == "UP") {
+                        dir = "UP";
+                    } else {
+                        dir = "DOWN";
+                    }
+                }
 
-            if (e.getCode() == KeyCode.UP) {
-                dir = "UP";
+                if (e.getCode() == KeyCode.UP) {
+                    if (dir == "DOWN") {
+                        dir = "DOWN";
+                    } else {
+                        dir = "UP";
+                    }
+                }
             }
-            //System.out.println("Direction : " + dir);
+            
+            if (e.getCode() == KeyCode.SPACE || e.getCode() == KeyCode.ESCAPE) {
+                if (gamePaused){
+                    gamePaused = false;
+                } else {
+                    gamePaused = true;
+                }
+            }
         });
     }
-//    
-//    private Scene createGameScene() {
-//        // Game scene set-up
-//        this.root = new Group();
-//        Canvas canvas = new Canvas(viewWidth, viewHeight);
-//        Scene gameScene = new Scene(root);
-//        root.getChildren().add(canvas);
-//        GraphicsContext gc = canvas.getGraphicsContext2D();
-//        return gameScene;
-//    }
 
     @Override
     public void stop() {
-        System.out.println("sovellus sulkeutuu");
         Platform.exit();
     }
 
