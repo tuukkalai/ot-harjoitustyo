@@ -1,12 +1,8 @@
-/laskarit/viikko2/Maksukortti/nbproject/
-/laskarit/viikko2/Maksukortti/target/
-/laskarit/viikko2/Maksukortti/.classpath
-/laskarit/viikko2/Maksukortti/.project
-/laskarit/viikko2/Maksukortti/.settings/
-/laskarit/viikko2/Unicafe/target/
-/laskarit/viikko2/Unicafe/nbproject/
-
-/Matopeli/target/
+/*/target/
 
 /laskarit/viikko3/drawio/
-/Matopeli/nbproject/
+/*/nbproject/
+
+/*/.classpath
+/*/.project
+/*/.settings/

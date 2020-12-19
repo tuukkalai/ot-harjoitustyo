@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import matopeli.ui.Snake;
-
+import matopeli.ui.Apple;
 
 /**
  *
@@ -27,6 +27,7 @@ import matopeli.ui.Snake;
 public class Matopeli extends Application {
     
     ArrayList<Snake> snake = new ArrayList<>();
+    ArrayList<String> inputs = new ArrayList<>();
     public int speed = 5;
     public int tickCall = 0;
     public boolean gameOver = false;
@@ -39,22 +40,6 @@ public class Matopeli extends Application {
     
     // Starting direction
     String dir = "RIGHT";
-    
-    /*
-    public static class Snake {
-        int x;
-        int y;
-        int width;
-        int height;
-        
-        public Snake(int x, int y) {
-            this.x = x;
-            this.y = y;
-            this.width = gridCell - 2;
-            this.height = gridCell - 2;
-        }
-    }
-*/
     
     public static class GameScene {
         Group root;
@@ -105,13 +90,7 @@ public class Matopeli extends Application {
         startBtn.setText("Uusi peli");
         menuGrid.addColumn(0, startBtn);
         
-
         // Game scene set-up
-//        Group root = new Group();
-//        Scene gameScene = new Scene(root);
-//        Canvas canvas = new Canvas(viewWidth, viewHeight);
-//        root.getChildren().add(canvas);
-//        GraphicsContext gc = canvas.getGraphicsContext2D();
         GameScene gameScene = new GameScene();
         
         // To the stats page
@@ -229,6 +208,10 @@ public class Matopeli extends Application {
             snake.get(i).y = snake.get(i - 1).y;
         }
 
+        if(!inputs.isEmpty()){
+            dir = inputs.remove(0);
+        }
+
         switch (dir) {
             case "RIGHT":
                 snake.get(0).x += gridCell;
@@ -250,7 +233,7 @@ public class Matopeli extends Application {
                 break;
             case "DOWN":
                 snake.get(0).y += gridCell;
-                if(snake.get(0).x > (viewHeight - gridCell)){
+                if(snake.get(0).y > (viewHeight - gridCell)){
                     gameOver = true;
                 }
                 break;
@@ -263,45 +246,39 @@ public class Matopeli extends Application {
         gc.setFill(Color.WHITE);
         gc.fillRect(gridCell, 2 * gridCell, viewWidth - 2 * gridCell, viewHeight - 3 * gridCell);
 
-        // Snake color
+        // Draw snake
         for (Snake s : snake) {
             gc.setFill(Color.BLACK);
             gc.fillRect(s.x, s.y, s.width, s.height);
         }
+
+
     }
     
     private void keyboardSetUp(Scene scene) {
         scene.setOnKeyPressed((KeyEvent e) -> {
             if(!gamePaused){
                 if (e.getCode() == KeyCode.LEFT) {
-                    if (dir == "RIGHT") {
-                        dir = "RIGHT";
-                    } else {
-                        dir = "LEFT";
+                    if (dir != "RIGHT") {
+                        inputs.add("LEFT");
                     }
                 }
 
                 if (e.getCode() == KeyCode.RIGHT) {
-                    if (dir == "LEFT") {
-                        dir = "LEFT";
-                    } else {
-                        dir = "RIGHT";
+                    if (dir != "LEFT") {
+                        inputs.add("RIGHT");
                     }
                 }
 
                 if (e.getCode() == KeyCode.DOWN) {
-                    if (dir == "UP") {
-                        dir = "UP";
-                    } else {
-                        dir = "DOWN";
+                    if (dir != "UP") {
+                        inputs.add("DOWN");
                     }
                 }
 
                 if (e.getCode() == KeyCode.UP) {
-                    if (dir == "DOWN") {
-                        dir = "DOWN";
-                    } else {
-                        dir = "UP";
+                    if (dir != "DOWN") {
+                        inputs.add("UP");
                     }
                 }
             }
