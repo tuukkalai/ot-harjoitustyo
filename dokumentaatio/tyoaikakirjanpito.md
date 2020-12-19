@@ -10,5 +10,6 @@
 | 08.12  | 5    | Madon korjaaminen, scenejen luonti ja linkittäminen |
 | 15.12. | 2    | JavaFX scenejen, groupien, canvasien, roottien, graphicsContextien, jne. opiskelua |
 | 16.12. | 5    | Uuden pelin aloittaminen edellisen päätyttyä, luokkien refaktorointia |
-| yht.   | 26   | | 
+| 19.12. | 4    | Omenoiden ja pisteiden lisäys |
+| yht.   | 30   | | 
 
