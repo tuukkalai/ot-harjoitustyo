@@ -1,6 +1,8 @@
 package matopeli;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,16 +29,21 @@ import matopeli.ui.Apple;
 public class Matopeli extends Application {
     
     ArrayList<Snake> snake = new ArrayList<>();
+    Apple apple;
+
     ArrayList<String> inputs = new ArrayList<>();
     public int speed = 5;
     public int tickCall = 0;
+    public int points = 0;
+    static public int amountOfCells = 30;
+
     public boolean gameOver = false;
     public boolean gamePaused = false;
     
     static int viewWidth = 600;
     static int viewHeight = 600;
 
-    public static int gridCell = viewWidth / 30;
+    public static int gridCell = viewWidth / amountOfCells;
     
     // Starting direction
     String dir = "RIGHT";
@@ -168,6 +175,9 @@ public class Matopeli extends Application {
             snake.add(new Snake(5 * gridCell + 1, viewHeight / 2 + 1));
             snake.add(new Snake(4 * gridCell + 1, viewHeight / 2 + 1));
             snake.add(new Snake(3 * gridCell + 1, viewHeight / 2 + 1));
+
+            // Render starting apple
+            apple = new Apple(10 * gridCell + 1, 4 * gridCell + 1);
             
             keyboardSetUp(gameScene.getGameScene());
             stage.setScene(gameScene.getGameScene());
@@ -208,7 +218,15 @@ public class Matopeli extends Application {
             snake.get(i).y = snake.get(i - 1).y;
         }
 
-        if(!inputs.isEmpty()){
+        if (snake.get(0).x == apple.x && snake.get(0).y == apple.y){
+            points += speed;
+            Random r = new Random();
+            apple.x = gridCell + r.nextInt(amountOfCells - 2) * gridCell + 1;
+            apple.y = 2 * gridCell + r.nextInt(amountOfCells - 3) * gridCell + 1;
+            snake.add(new Snake(snake.get(snake.size() - 1).x, snake.get(snake.size() - 1).y));
+        }
+
+        if (!inputs.isEmpty()) {
             dir = inputs.remove(0);
         }
 
@@ -239,12 +257,15 @@ public class Matopeli extends Application {
                 break;
         }
 
-        // Game area colors
+        // Render empty game area
         gc.setFill(Color.BLACK);
         gc.fillRect(0, gridCell, viewWidth, viewHeight - gridCell);
 
         gc.setFill(Color.WHITE);
         gc.fillRect(gridCell, 2 * gridCell, viewWidth - 2 * gridCell, viewHeight - 3 * gridCell);
+
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, viewWidth, gridCell);
 
         // Draw snake
         for (Snake s : snake) {
@@ -252,6 +273,13 @@ public class Matopeli extends Application {
             gc.fillRect(s.x, s.y, s.width, s.height);
         }
 
+        gc.setFill(Color.CRIMSON);
+        gc.fillRect(apple.x, apple.y, apple.width, apple.height);
+
+        // Draw points
+        gc.setFill(Color.BLACK);
+        gc.setFont(new Font("", 15));
+        gc.fillText("Pisteet: " + points, viewWidth - 70,  gridCell - 2);
 
     }
     
