@@ -1,7 +1,9 @@
 package matopeli;
 
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Random;
+import java.io.FileInputStream;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -13,6 +15,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -21,6 +24,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import matopeli.ui.Snake;
 import matopeli.ui.Apple;
+import matopeli.dao.FileStatsDao;
+import matopeli.domain.Stat;
 
 /**
  *
@@ -28,6 +33,8 @@ import matopeli.ui.Apple;
  */
 public class Matopeli extends Application {
     
+    FileStatsDao statsDao;
+
     ArrayList<Snake> snake = new ArrayList<>();
     Apple apple;
 
@@ -76,6 +83,16 @@ public class Matopeli extends Application {
             this.root.getChildren().add(canvas);
         }
     }
+
+    @Override
+    public void init() throws Exception {
+        Properties props = new Properties();
+        props.load(new FileInputStream("conf.properties"));
+
+        String statFile = props.getProperty("statFile");
+
+        statsDao = new FileStatsDao(statFile);
+    }
     
     @Override
     public void start(Stage stage) {
@@ -106,17 +123,24 @@ public class Matopeli extends Application {
         menuGrid.addColumn(0, statsBtn);
         
         // Stats scene set-up
-        GridPane statsGrid = new GridPane();        
+        GridPane statsGrid = new GridPane();
         Label statsLogo = new Label();
+        Label playerLabel = new Label("Player");
+        TextField playerInput = new TextField();
+        Button playerBtn = new Button("Create");
+
         statsLogo.setText("Tilastot");
-        statsGrid.add(statsLogo, 0, 0);
         statsGrid.setAlignment(Pos.CENTER);
+        statsGrid.add(statsLogo, 0, 0);
+        statsGrid.add(playerLabel, 0, 1);
+        statsGrid.add(playerInput, 0, 2);
+        statsGrid.add(playerBtn, 0, 3);
         
         // Table of statistics
         
         Button backBtn = new Button();
         backBtn.setText("Takaisin päävalikkoon");
-        statsGrid.add(backBtn, 0, 1);
+        statsGrid.add(backBtn, 0, 5);
         statsGrid.setGridLinesVisible(false);
         statsGrid.setHgap(10);
         statsGrid.setVgap(10);
@@ -193,6 +217,11 @@ public class Matopeli extends Application {
         backBtn.setOnMouseClicked(e -> {
             stage.setScene(menuScene);
         });
+        playerBtn.setOnAction(e->{
+            String playerName = playerInput.getText();
+            // Stat stat = statsDao.create(new Stat(playerName, points));
+            // System.out.println("Stats: " + stat);
+        });
     }
     
     public void tick(GraphicsContext gc) {
@@ -233,28 +262,34 @@ public class Matopeli extends Application {
         switch (dir) {
             case "RIGHT":
                 snake.get(0).x += gridCell;
-                if(snake.get(0).x > (viewWidth - gridCell)){
+                if(snake.get(0).x > (viewWidth - gridCell)) {
                     gameOver = true;
                 }
                 break;
             case "LEFT":
                 snake.get(0).x -= gridCell;
-                if(snake.get(0).x < gridCell){
+                if(snake.get(0).x < gridCell) {
                     gameOver = true;
                 }
                 break;
             case "UP":
                 snake.get(0).y -= gridCell;
-                if(snake.get(0).y < 2 * gridCell){
+                if(snake.get(0).y < 2 * gridCell) {
                     gameOver = true;
                 }
                 break;
             case "DOWN":
                 snake.get(0).y += gridCell;
-                if(snake.get(0).y > (viewHeight - gridCell)){
+                if(snake.get(0).y > (viewHeight - gridCell)) {
                     gameOver = true;
                 }
                 break;
+        }
+
+        for (int i = snake.size() - 1; i >= 1; i--) {
+            if (snake.get(0).x == snake.get(i).x && snake.get(0).y == snake.get(i).y) {
+                gameOver = true;
+            }
         }
 
         // Render empty game area

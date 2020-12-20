@@ -1,8 +1,12 @@
 # Ohjelmistotekniikka, harjoitustyö
 
+
+
 ## Release
 
 [Viikon 5 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/viikko5)
+
+[Viikon 7 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Dokumentaatio
 
@@ -45,3 +49,7 @@ mvn jxr:jxr checkstyle:checkstyle
 ```
 
 Checkstylen muodostama tiedosto löytyy hakemistosta target/site/checkstyle.html
+
+## Näppäimet
+
+Pelissä käytössä nuolinäppäimet, sekä ESC ja välilyönti.

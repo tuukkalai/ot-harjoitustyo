@@ -11,5 +11,6 @@
 | 15.12. | 2    | JavaFX scenejen, groupien, canvasien, roottien, graphicsContextien, jne. opiskelua |
 | 16.12. | 5    | Uuden pelin aloittaminen edellisen päätyttyä, luokkien refaktorointia |
 | 19.12. | 4    | Omenoiden ja pisteiden lisäys |
-| yht.   | 30   | | 
+| 20.12. | 6    | Statistiikan tallentamisen yrittämistä, tiedontallennuksen testauksen luontia |
+| yht.   | 36   | | 
 
