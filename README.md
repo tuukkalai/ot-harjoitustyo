@@ -6,7 +6,7 @@
 
 [Viikon 5 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/viikko5)
 
-[Viikon 7 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/viikko5)
+[Viikon 7 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/viikko7)
 
 ## Dokumentaatio
 
