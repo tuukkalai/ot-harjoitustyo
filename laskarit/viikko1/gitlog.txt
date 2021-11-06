@@ -1,6 +1,3 @@
-ohte/ot2021 › git log --stat | cat
-zsh: command not found:  cat
-
 ohte/ot2021 › git log --stat
 commit 78a1ae1a8b9bd52f3526dee486f213d0cea6aa58
 Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
