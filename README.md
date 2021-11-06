@@ -1,9 +1,8 @@
-# Ohjelmistotekniikka
-## University of Helsinki, Autumn 2021
+# Ohjelmistotekniikka, harjoitustyö
 
-This repo will eventually contain all the exercises and final project for "Ohjelmistotekniikka" course.
+## Tehtävät
 
-## Problems
+### Viikko 1
 
-Create a _pull request_.
-
+[gitlog.txt](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
+[komentorivi.txt](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/laskarit/viikko1/komentorivi.txt)
