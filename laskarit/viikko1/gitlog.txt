@@ -1,0 +1,126 @@
+ohte/ot2021 › git log --stat | cat
+zsh: command not found:  cat
+
+ohte/ot2021 › git log --stat
+commit 78a1ae1a8b9bd52f3526dee486f213d0cea6aa58
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 13:39:54 2021 +0200
+
+    Harjoittelua: Remove and rename files
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 2c8a47b9e25b312ee46a3ea5adfa5f640f36d03e
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 13:21:55 2021 +0200
+
+    Harjoittelua: Add tiedostoja folder
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 12305f4020554e54045997c83b83f63d7565401f
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 13:20:38 2021 +0200
+
+    Updated eka.txt and kolmas.txt
+
+ eka.txt    |  8 +++++++-
+ kolmas.txt | 26 ++++++++++++--------------
+ 2 files changed, 19 insertions(+), 15 deletions(-)
+
+commit ad16906c99894ef953d41f48e385855f341f6921
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 12:56:33 2021 +0200
+
+    Rename tiedosto.txt to eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 3fe4bfcc2588068de36a9f1790e78f29a20dbfd0
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 12:55:41 2021 +0200
+
+    Delete toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit d7ee15a90e1d067c0929594969126a4ca8dac072
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 12:53:13 2021 +0200
+
+    Update tiedosto.txt with another chapter
+
+ tiedosto.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit d16594e7987b7013f5714212dc6c13932e09d0ca
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 12:52:16 2021 +0200
+
+    Update tiedosto with lost of Seitsemän Veljestä
+
+ tiedosto.txt | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+commit 4f2c2f08aa5edb8a0d85fb701644098ba6b408cd
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 11:11:04 2021 +0200
+
+    Added filetree, osa2 exercise
+
+ tree.md | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+commit 032788b7415b4dc5b9b92956dc19f88a99acb123
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 10:54:17 2021 +0200
+
+    Lisätty stuff
+
+ stuff/jotain.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 9f509c663578854455d7f008c4209afd2a6b3e38
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 10:53:22 2021 +0200
+
+    Muutettu toinen ja kolmas
+
+ kolmas.txt | 14 ++++++++++++++
+ toinen.txt |  1 +
+ 2 files changed, 15 insertions(+)
+
+commit 2280d1763e29146f2219661bb775fbc38a15c372
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 10:50:02 2021 +0200
+
+    kolmas lisätty
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 14f5a12b09ff884e2f973823d5f22dbe4aa6126e
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 10:48:24 2021 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 98f9b76e7667c21263be9eae6c273dd15e16505b
+Author: Tuukka Laitinen <8557415+tuukkalai@users.noreply.github.com>
+Date:   Sat Nov 6 10:46:08 2021 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
