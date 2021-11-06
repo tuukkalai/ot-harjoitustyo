@@ -1,4 +1,3 @@
-tuukkala@melkki:~$ tree kurssit
 kurssit
 └── ot2021
     └── viikko1
