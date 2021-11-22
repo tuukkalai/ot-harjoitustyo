@@ -3,30 +3,34 @@ from tkinter import ttk, constants
 PADDING = 5
 
 class Login:
-	def __init__(self, root, login_success) -> None:
+	def __init__(self, root, login_success, create_new_user) -> None:
 		self._root = root
+		self._frame = None
 		self._login_success = login_success
+		self._create_new_user = create_new_user
 		self._username_entry = None
 		self._password_entry = None
 		self._initialize()
 
 	def _initialize(self):
+		self._frame = ttk.Frame(master=self._root)
+
 		# Login view items
-		heading_label = ttk.Label(master=self._root, text='Login')
+		heading_label = ttk.Label(master=self._frame, text='Login')
 
-		username_label = ttk.Label(master=self._root, text='Username')
-		self._username_entry = ttk.Entry(master=self._root)
+		username_label = ttk.Label(master=self._frame, text='Username')
+		self._username_entry = ttk.Entry(master=self._frame)
 
-		password_label = ttk.Label(master=self._root, text='Password')
-		self._password_entry = ttk.Entry(master=self._root, show='*')
+		password_label = ttk.Label(master=self._frame, text='Password')
+		self._password_entry = ttk.Entry(master=self._frame, show='*')
 
 		login_button = ttk.Button(
-			master=self._root, 
+			master=self._frame, 
 			text='Login',
 			command=lambda : self._handle_login_button()
 		)
 		create_user_button = ttk.Button(
-			master=self._root,
+			master=self._frame,
 			text='Create new user',
 			command=lambda : self._handle_create_user_button()
 		)
@@ -85,13 +89,19 @@ class Login:
 		)
 
 		# Fill extra space if window is resized
-		self._root.grid_columnconfigure(1, weight=1)
+		self._frame.grid_columnconfigure(0, weight=1)
+		self._frame.pack(fill=constants.X)
 
 	def _handle_login_button(self):
 		username = self._username_entry.get()
 		password = self._password_entry.get()
-		print(' ---> ', username, ' - ', password, ' <--- ')
-		self._login_success()
+		if username and password:
+			self._login_success()
+		else:
+			raise ValueError('Username and/or password empty')
 
 	def _handle_create_user_button(self):
-		print('Create new user')
+		self._create_new_user()
+
+	def destroy(self):
+		self._frame.destroy()
