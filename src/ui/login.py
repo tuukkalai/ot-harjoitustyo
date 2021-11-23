@@ -48,13 +48,14 @@ class Login:
 		username_label.grid(
 			row=1, 
 			column=0, 
+			sticky=constants.E,
 			padx=PADDING, 
 			pady=PADDING
 		)
 		self._username_entry.grid(
 			row=1, 
 			column=1, 
-			sticky=constants.E,
+			sticky=constants.EW,
 			padx=PADDING, 
 			pady=PADDING
 		)
@@ -62,13 +63,14 @@ class Login:
 		password_label.grid(
 			row=2, 
 			column=0, 
+			sticky=constants.E,
 			padx=PADDING, 
 			pady=PADDING
 		)
 		self._password_entry.grid(
 			row=2, 
 			column=1, 
-			sticky=constants.W, 
+			sticky=constants.EW, 
 			padx=PADDING, 
 			pady=PADDING
 		)
@@ -77,6 +79,7 @@ class Login:
 			row=3, 
 			column=0, 
 			columnspan=2, 
+			sticky=constants.EW,
 			padx=PADDING, 
 			pady=PADDING
 		)
@@ -84,12 +87,13 @@ class Login:
 			row=4, 
 			column=0, 
 			columnspan=2, 
+			sticky=constants.EW,
 			padx=PADDING, 
 			pady=PADDING
 		)
 
 		# Fill extra space if window is resized
-		self._frame.grid_columnconfigure(0, weight=1)
+		self._frame.grid_columnconfigure(1, minsize=400, weight=1)
 		self._frame.pack(fill=constants.X)
 
 	def _handle_login_button(self):
