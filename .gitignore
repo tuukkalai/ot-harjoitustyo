@@ -3,4 +3,5 @@ __pycache__/
 .coverage
 htmlcov/
 
-users.txt
+data/users.txt
+data/test_users.txt

@@ -17,14 +17,28 @@ PyDiary is part of course work at University of Helsinki.
 poetry install
 ```
 
-### Start the application
+## Start the application
 
 ```sh
 poetry run invoke start
 ```
 
-## Command line functionalities
+## Other command line functionalities
 
-`WIP`
+### Run tests
 
-How to use to command line commands.
+```sh
+poetry run invoke test
+```
+
+### Create test coverage report
+
+```sh
+poetry run invoke coverage-report
+```
+
+### Open test coverage report on Firefox
+
+```sh
+poetry run invoke coverage-ff
+```

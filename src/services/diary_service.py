@@ -13,19 +13,19 @@ class UsernameExistsError(Exception):
 	pass
 
 class DiaryService:
-	def __init__(self) -> None:
+	def __init__(self, users_file='users.txt') -> None:
 		self._user = None
-		self._users_file = self.check_users_file()
+		self._users_file = self.check_users_file(users_file)
 		self._all_users = self.get_all_users()
 
-	def check_users_file(self):
+	def check_users_file(self, users_file):
 		data_dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '../../data'))
 		if not os.path.isdir(data_dir):
 			os.mkdir(data_dir)
-		if not os.path.isfile(os.path.join(data_dir, 'users.txt')):
-			with open(os.path.join(data_dir, 'users.txt'), 'w') as file:
+		if not os.path.isfile(os.path.join(data_dir, users_file)):
+			with open(os.path.join(data_dir, users_file), 'w') as file:
 				file.write('')
-		return os.path.join(data_dir, 'users.txt')
+		return os.path.join(data_dir, users_file)
 
 	def get_current_user(self):
 		return self._user
@@ -44,12 +44,12 @@ class DiaryService:
 				users_file.write(f'{username} {password_1}\n')
 			self._user = username
 		elif len(username) < 3:
-			raise InvalidUsernameError
+			raise InvalidUsernameError('Invalid username')
 		elif len(password_1) < 3:
-			raise InvalidPasswordError
+			raise InvalidPasswordError('Invalid password')
 		elif password_1 != password_2:
-			raise InvalidPasswordMatchError
+			raise InvalidPasswordMatchError('Passwords do not match')
 		else:
-			raise UsernameExistsError
+			raise UsernameExistsError('Username already exists')
 
 diary_service = DiaryService()
