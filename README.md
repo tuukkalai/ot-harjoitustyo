@@ -11,9 +11,17 @@ PyDiary is part of course work at University of Helsinki.
 
 ## Installation
 
-`WIP`
+### Install Poetry dependencies
 
-Detailed instruction about how to install the program locally.
+```sh
+poetry install
+```
+
+### Start the application
+
+```sh
+poetry run invoke start
+```
 
 ## Command line functionalities
 
