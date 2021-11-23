@@ -1,4 +1,5 @@
-from tkinter import ttk, constants
+from tkinter import StringVar, ttk, constants
+from services.diary_service import InvalidPasswordError, InvalidPasswordMatchError, InvalidUsernameError, UsernameExistsError, diary_service
 
 PADDING = 5
 
@@ -11,6 +12,8 @@ class CreateUser:
 		self._username_entry = None
 		self._password_entry_1 = None
 		self._password_entry_2 = None
+		self._error_variable = None
+		self._error_label = None
 		self.initialize()
 
 	def initialize(self):
@@ -108,12 +111,47 @@ class CreateUser:
 			pady=PADDING
 		)
 
+		self._error_variable = StringVar(self._frame)
+		self._error_label = ttk.Label(
+			master=self._frame,
+			textvariable=self._error_variable,
+			foreground='#dd3333'
+		)
+
+		self._error_label.grid(
+			row=6,
+			column=0,
+			columnspan=2,
+			sticky=constants.W,
+			padx=PADDING,
+			pady=PADDING
+		)
+
 		# Fill extra space if window is resized
 		self._frame.grid_columnconfigure(1, minsize=400, weight=1)
 		self._frame.pack(fill=constants.X)
 
+	def _show_error(self, error_message):
+		self._error_variable.set(error_message)
+		self._error_label.grid()
+
+	def _hide_error(self):
+		self._error_label.grid_remove()
+
 	def _handle_create_user(self):
-		print('Create new user')
+		username = self._username_entry.get()
+		password_1 = self._password_entry_1.get()
+		password_2 = self._password_entry_2.get()
+		try:
+			diary_service.create_user(username, password_1, password_2)
+		except InvalidUsernameError:
+			self._show_error('Faulty username, min. 3 characters.')
+		except UsernameExistsError:
+			self._show_error(f'Username {username} already exists.')
+		except InvalidPasswordError:
+			self._show_error('Faulty password, min. 3 characters.')
+		except InvalidPasswordMatchError:
+			self._show_error('Passwords do not match.')
 
 	def destroy(self):
 		self._frame.destroy()

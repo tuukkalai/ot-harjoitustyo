@@ -25,7 +25,11 @@ class UI:
 
 	def _show_create_new_user_view(self):
 		self._hide_current_view()
-		self._current_view = CreateUser(self._root, self._show_diary_view, self._show_login_view)
+		self._current_view = CreateUser(
+			self._root,
+			self._show_diary_view,
+			self._show_login_view
+		)
 
 	def _show_diary_view(self):
 		print('ui: showing diary view')

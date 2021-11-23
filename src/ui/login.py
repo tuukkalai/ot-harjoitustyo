@@ -1,4 +1,5 @@
 from tkinter import ttk, constants
+from services.diary_service import InvalidPasswordError, InvalidUsernameError 
 
 PADDING = 5
 
@@ -101,8 +102,10 @@ class Login:
 		password = self._password_entry.get()
 		if username and password:
 			self._login_success()
-		else:
-			raise ValueError('Username and/or password empty')
+		elif not username:
+			raise InvalidUsernameError('Username empty.')
+		elif not password:
+			raise InvalidPasswordError('Password empty.')
 
 	def _handle_create_user_button(self):
 		self._create_new_user()
