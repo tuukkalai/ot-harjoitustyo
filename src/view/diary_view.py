@@ -24,7 +24,7 @@ class DiaryView:
 		user_var = StringVar(self._frame)
 		user_info = ttk.Label(
 			master=self._frame,
-			text=user_var
+			textvariable=self._user
 		)
 
 		heading_label.grid(

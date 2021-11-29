@@ -1,5 +1,4 @@
-from tkinter import ttk, constants
-# from services.diary_service import InvalidPasswordError, InvalidUsernameError 
+from tkinter import StringVar, ttk, constants
 
 PADDING = 5
 
@@ -13,11 +12,18 @@ class LoginView:
 		self._password_entry = None
 		self._initialize()
 
+	def destroy(self):
+		self._frame.destroy()
+	
 	def pack(self):
 		self._frame.pack(fill=constants.X)
 
-	def destroy(self):
-		self._frame.destroy()
+	def _show_error(self, error_message):
+		self._error_variable.set(error_message)
+		self._error_label.grid()
+
+	def _hide_error(self):
+		self._error_label.grid_remove()
 
 	def _initialize(self):
 		self._frame = ttk.Frame(master=self._root)
@@ -96,6 +102,22 @@ class LoginView:
 			columnspan=2, 
 			sticky=constants.EW,
 			padx=PADDING, 
+			pady=PADDING
+		)
+		
+		self._error_variable = StringVar(self._frame)
+		self._error_label = ttk.Label(
+			master=self._frame,
+			textvariable=self._error_variable,
+			foreground='#dd3333'
+		)
+
+		self._error_label.grid(
+			row=6,
+			column=0,
+			columnspan=2,
+			sticky=constants.W,
+			padx=PADDING,
 			pady=PADDING
 		)
 

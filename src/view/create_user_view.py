@@ -2,7 +2,7 @@ from tkinter import StringVar, ttk, constants
 
 PADDING = 5
 
-class CreateUser:
+class CreateUserView:
 	def __init__(self, root, create, cancel) -> None:
 		self._root = root
 		self._frame = None
@@ -20,6 +20,13 @@ class CreateUser:
 
 	def pack(self):
 		self._frame.pack(fill=constants.X)
+
+	def _show_error(self, error_message):
+		self._error_variable.set(error_message)
+		self._error_label.grid()
+
+	def _hide_error(self):
+		self._error_label.grid_remove()
 
 	def initialize(self):
 		self._frame = ttk.Frame(master=self._root)

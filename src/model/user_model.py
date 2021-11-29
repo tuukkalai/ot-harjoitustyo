@@ -1,6 +1,5 @@
 from entities.user import User
 from database import db
-import uuid
 
 class WrongPasswordError(BaseException):
 	pass
@@ -8,34 +7,53 @@ class WrongPasswordError(BaseException):
 class UsernameNotExistsError(BaseException):
 	pass
 
+class UsernameAlreadyExistsError(BaseException):
+	pass
+
+class InvalidCredentialsError(BaseException):
+	pass
+
+class PasswordMismatchError(BaseException):
+	pass
+
 class UserModel:
 	def __init__(self) -> None:
 		self._connection = db.get_connection()
 
+	def _get_all_users(self) -> list:
+		self._connection.row_factory = lambda cursor, row: row[0]
+		cursor = self._connection.cursor()
+		return cursor.execute('SELECT username FROM users').fetchall()
+
 	def login(self, username, password) -> User:
 		cursor = self._connection.cursor()
-		cursor.execute(''' SELECT username, password 
+		cursor.execute(''' SELECT id, username, password 
 			FROM users 
-			WHERE username=? ''', 
+			WHERE username = ? ''', 
 			(username,)
 		)
 		user = cursor.fetchone()
 		if user:
-			if user[1] == password:
-				return User(username)
+			if user[2] == password:
+				return User(user[0], user[1])
 			else:
 				raise WrongPasswordError
 		else:
 			raise UsernameNotExistsError
 
+	def create_user(self, username, password_1, password_2) -> User:
+		if username in self._get_all_users():
+			raise UsernameAlreadyExistsError
 
-	def create_user(self, username, password1, password2) -> User:
-		if password1 == password2 and len(password1) > 2 and len(username) > 2:
-			cursor = self._connection.cursor()
-			cursor.execute("INSERT INTO users VALUES (?,?,?)", (uuid.hex(), username, password1))
-			self._connection.commit()
-			return User(username)
+		if password_1 == password_2:
+			if len(password_1) > 2 and len(username) > 2:
+				cursor = self._connection.cursor()
+				cursor.execute("INSERT INTO users (username, password) VALUES (?,?)", 
+					(username, password_1)
+				)
+				self._connection.commit()
+				return User(cursor.lastrowid, username)
+			else:
+				raise InvalidCredentialsError
 		else:
-			# TODO: raise error
-			print('Username or password too short, or password mismatch')
-			return None
+			raise PasswordMismatchError
