@@ -1,17 +1,23 @@
 from tkinter import ttk, constants
-from services.diary_service import InvalidPasswordError, InvalidUsernameError 
+# from services.diary_service import InvalidPasswordError, InvalidUsernameError 
 
 PADDING = 5
 
-class Login:
-	def __init__(self, root, login_success, create_new_user) -> None:
+class LoginView:
+	def __init__(self, root, login, create_user) -> None:
 		self._root = root
 		self._frame = None
-		self._login_success = login_success
-		self._create_new_user = create_new_user
+		self._login = login
+		self._create_user = create_user
 		self._username_entry = None
 		self._password_entry = None
 		self._initialize()
+
+	def pack(self):
+		self._frame.pack(fill=constants.X)
+
+	def destroy(self):
+		self._frame.destroy()
 
 	def _initialize(self):
 		self._frame = ttk.Frame(master=self._root)
@@ -28,12 +34,12 @@ class Login:
 		login_button = ttk.Button(
 			master=self._frame, 
 			text='Login',
-			command=lambda : self._handle_login_button()
+			command=lambda : self._login(self._username_entry.get(), self._password_entry.get())
 		)
 		create_user_button = ttk.Button(
 			master=self._frame,
 			text='Create new user',
-			command=lambda : self._handle_create_user_button()
+			command=lambda : self._create_user()
 		)
 
 		# Positioning items to grid
@@ -95,20 +101,4 @@ class Login:
 
 		# Fill extra space if window is resized
 		self._frame.grid_columnconfigure(1, minsize=400, weight=1)
-		self._frame.pack(fill=constants.X)
-
-	def _handle_login_button(self):
-		username = self._username_entry.get()
-		password = self._password_entry.get()
-		if username and password:
-			self._login_success()
-		elif not username:
-			raise InvalidUsernameError('Username empty.')
-		elif not password:
-			raise InvalidPasswordError('Password empty.')
-
-	def _handle_create_user_button(self):
-		self._create_new_user()
-
-	def destroy(self):
-		self._frame.destroy()
+		self.pack()

@@ -1,13 +1,12 @@
 from tkinter import StringVar, ttk, constants
-from services.diary_service import InvalidPasswordError, InvalidPasswordMatchError, InvalidUsernameError, UsernameExistsError, diary_service
 
 PADDING = 5
 
 class CreateUser:
-	def __init__(self, root, create_success, cancel) -> None:
+	def __init__(self, root, create, cancel) -> None:
 		self._root = root
 		self._frame = None
-		self._create_success = create_success
+		self._create = create
 		self._cancel = cancel
 		self._username_entry = None
 		self._password_entry_1 = None
@@ -15,6 +14,12 @@ class CreateUser:
 		self._error_variable = None
 		self._error_label = None
 		self.initialize()
+
+	def destroy(self):
+		self._frame.destroy()
+
+	def pack(self):
+		self._frame.pack(fill=constants.X)
 
 	def initialize(self):
 		self._frame = ttk.Frame(master=self._root)
@@ -32,7 +37,11 @@ class CreateUser:
 		create_user_button = ttk.Button(
 			master=self._frame, 
 			text='Create user',
-			command=lambda : self._handle_create_user()
+			command=lambda : self._create(
+				self._username_entry.get(),
+				self._password_entry_1.get(),
+				self._password_entry_2.get()
+			)
 		)
 		cancel_button = ttk.Button(
 			master=self._frame,
@@ -129,29 +138,4 @@ class CreateUser:
 
 		# Fill extra space if window is resized
 		self._frame.grid_columnconfigure(1, minsize=400, weight=1)
-		self._frame.pack(fill=constants.X)
-
-	def _show_error(self, error_message):
-		self._error_variable.set(error_message)
-		self._error_label.grid()
-
-	def _hide_error(self):
-		self._error_label.grid_remove()
-
-	def _handle_create_user(self):
-		username = self._username_entry.get()
-		password_1 = self._password_entry_1.get()
-		password_2 = self._password_entry_2.get()
-		try:
-			diary_service.create_user(username, password_1, password_2)
-		except InvalidUsernameError:
-			self._show_error('Faulty username, min. 3 characters.')
-		except UsernameExistsError:
-			self._show_error(f'Username {username} already exists.')
-		except InvalidPasswordError:
-			self._show_error('Faulty password, min. 3 characters.')
-		except InvalidPasswordMatchError:
-			self._show_error('Passwords do not match.')
-
-	def destroy(self):
-		self._frame.destroy()
+		self.pack()
