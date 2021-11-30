@@ -14,5 +14,6 @@
 | 30.11. | 2 | Fixing functionalities to work with SQLite |
 | 30.11. | 1 | Adding PyLint |
 | 30.11. | 1 | Cleaning the application and repo |
+| 30.11. | 1 | Documenting the architecture |
 |---|---|---|
-| total | 29 |  |
+| total | 30 |  |
