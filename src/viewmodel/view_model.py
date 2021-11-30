@@ -5,10 +5,12 @@ from model.diary_model import DiaryModel
 from view.login_view import LoginView
 from view.create_user_view import CreateUserView
 from view.diary_view import DiaryView
+from view.entry_view import EntryView
 
 class ViewModel:
     def __init__(self):
         self.root = tkinter.Tk()
+        self.root.geometry('600x600')
         self.user_model = UserModel()
         self.diary_model = DiaryModel()
         self.login_view = LoginView(
@@ -49,11 +51,26 @@ class ViewModel:
     def show_diary_view(self):
         if self._user_logged_in:
             self.hide_current_view()
-            self.__current_view = DiaryView(self.root, self._user_logged_in)
+            entries = self.diary_model._get_user_entries(self._user_logged_in)
+            self.__current_view = DiaryView(
+                self.root, 
+                self._user_logged_in, 
+                entries, 
+                self.show_entry_view
+            )
             self.__current_view.pack()
         else:
             self.show_login_view()
             self.__current_view._show_error('No user logged in')
+
+    def show_entry_view(self, entry):
+        self.hide_current_view()
+        self.__current_view = EntryView(
+            self.root, 
+            entry,
+            self.save_entry
+        )
+        self.__current_view.pack()
 
     def login(self, username, password):
         try:
@@ -81,3 +98,7 @@ class ViewModel:
             )
         except PasswordMismatchError:
             self.__current_view._show_error('Passwords do not match')
+
+    def save_entry(self, entry):
+        self.diary_model._save_entry(self._user_logged_in, entry)
+        self.show_diary_view()

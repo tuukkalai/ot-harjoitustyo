@@ -10,6 +10,8 @@ class LoginView:
 		self._create_user = create_user
 		self._username_entry = None
 		self._password_entry = None
+		self._error_label = None
+		self._error_variable = None
 		self._initialize()
 
 	def destroy(self):
@@ -116,11 +118,10 @@ class LoginView:
 			row=6,
 			column=0,
 			columnspan=2,
-			sticky=constants.W,
+			sticky=constants.SW,
 			padx=PADDING,
 			pady=PADDING
 		)
 
-		# Fill extra space if window is resized
-		self._frame.grid_columnconfigure(1, minsize=400, weight=1)
+		self._frame.grid_columnconfigure(1, minsize=300, weight=1, pad=PADDING)
 		self.pack()

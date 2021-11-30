@@ -1,14 +1,15 @@
 import os
 import sqlite3
-import dotenv
+from dotenv import load_dotenv
 from sqlite3.dbapi2 import Error
 
 class Database:
     def __init__(self) -> None:
-        dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+        load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
         self._connection = sqlite3.connect(
             os.path.join(os.path.dirname(__file__), '..', 'data', os.getenv('DATABASE_FILE'))
         )
+        self._connection.row_factory = sqlite3.Row
         self.init_database()
 
     def init_database(self) -> bool:

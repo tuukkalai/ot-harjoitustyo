@@ -21,9 +21,10 @@ class UserModel:
 		self._connection = db.get_connection()
 
 	def _get_all_users(self) -> list:
-		self._connection.row_factory = lambda cursor, row: row[0]
 		cursor = self._connection.cursor()
-		return cursor.execute('SELECT username FROM users').fetchall()
+		rows = cursor.execute('SELECT username FROM users').fetchall()
+		usernames = list(map(lambda row : row['username'], rows))
+		return usernames
 
 	def login(self, username, password) -> User:
 		cursor = self._connection.cursor()
