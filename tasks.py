@@ -2,15 +2,15 @@ from invoke import task
 
 @task
 def start(ctx):
-    ctx.run('python src/index.py')
+    ctx.run('python src/main.py')
 
 @task
 def test(ctx):
-    ctx.run('pytest src')
+    ctx.run('pytest src --envfile ./.env.test')
 
 @task
 def coverage(ctx):
-    ctx.run('coverage run --branch -m pytest src')
+    ctx.run('coverage run --branch -m pytest src --envfile ./.env.test')
 
 @task(coverage)
 def coverage_report(ctx):

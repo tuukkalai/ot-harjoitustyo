@@ -6,3 +6,5 @@ htmlcov/
 data/users.txt
 data/test_users.txt
 data/test.db
+data/pydiary.db
+data/pydiary.test.db
