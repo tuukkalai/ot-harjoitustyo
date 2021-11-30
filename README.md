@@ -42,3 +42,15 @@ poetry run invoke coverage-report
 ```sh
 poetry run invoke coverage-ff
 ```
+
+### Run lint score
+
+```sh
+poetry run invoke lint
+```
+
+### Run code formatting
+
+```sh
+poetry run invoke format
+```

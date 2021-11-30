@@ -32,34 +32,34 @@ The application consists of following views.
 ### After logging in
 
 - [x] User can view list of diary entries
-- [] User can create a new entry
+- [ ] User can create a new entry
   - [x] Entry is only visible to logged in user
 - [x] User can open an entry to edit mode
-- [] User can log out
+- [ ] User can log out
 
 ### Edit mode
 
 - [x] User can update the entry text
-    - [] After update the user is kept on current entry edit screen
-- [] User can delete the entry
-    - [] After deletion user is returned to list of entries
-- [] User can return to list of entries without deleting or updating entry
+    - [ ] After update the user is kept on current entry edit screen
+- [ ] User can delete the entry
+    - [ ] After deletion user is returned to list of entries
+- [ ] User can return to list of entries without deleting or updating entry
 
 ## Further development ideas
 
 After basic functionalities, following list of backlog items can be added following agile development methods
 
 - [x] Adding separate heading input for entries
-- [] Adding tags to entries
-- [] Grouping selected entries to folders/groups
-    - [] Based on tags
-- [] Showing stats of the single entry/group of entries/all entries
-    - [] In separate view
-    - [] At the bottom of an entry
-- [] Admin user
-    - [] View to overall user stats
-    - [] View to individual user stats
-- [] Different types of entries, that would show stats based on values in the entries
-    - [] Food diary
-    - [] Fitness diary
-    - [] Time tracking diary
+- [ ] Adding tags to entries
+- [ ] Grouping selected entries to folders/groups
+    - [ ] Based on tags
+- [ ] Showing stats of the single entry/group of entries/all entries
+    - [ ] In separate view
+    - [ ] At the bottom of an entry
+- [ ] Admin user
+    - [ ] View to overall user stats
+    - [ ] View to individual user stats
+- [ ] Different types of entries, that would show stats based on values in the entries
+    - [ ] Food diary
+    - [ ] Fitness diary
+    - [ ] Time tracking diary
