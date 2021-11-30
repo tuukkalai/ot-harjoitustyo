@@ -37,13 +37,13 @@ class UserModel:
 			if user[2] == password:
 				return User(user[0], user[1])
 			else:
-				raise WrongPasswordError
+				raise WrongPasswordError('Wrong password')
 		else:
-			raise UsernameNotExistsError
+			raise UsernameNotExistsError(f'Username `{username}` not found')
 
 	def create_user(self, username, password_1, password_2) -> User:
 		if username in self._get_all_users():
-			raise UsernameAlreadyExistsError
+			raise UsernameAlreadyExistsError(f'Username `{username}` already exists')
 
 		if password_1 == password_2:
 			if len(password_1) > 2 and len(username) > 2:
@@ -54,6 +54,6 @@ class UserModel:
 				self._connection.commit()
 				return User(cursor.lastrowid, username)
 			else:
-				raise InvalidCredentialsError
+				raise InvalidCredentialsError('Username or password too short, min. 3 characters')
 		else:
-			raise PasswordMismatchError
+			raise PasswordMismatchError('Passwords do not match')
