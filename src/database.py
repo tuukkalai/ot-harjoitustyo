@@ -1,13 +1,17 @@
 import os
 import sqlite3
 from dotenv import load_dotenv
-from sqlite3.dbapi2 import Error
+
+
+dirname = os.path.dirname(__file__)
+
 
 class Database:
     def __init__(self) -> None:
-        load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+        load_dotenv(os.path.join(dirname, '..', '.env'))
         self._connection = sqlite3.connect(
-            os.path.join(os.path.dirname(__file__), '..', 'data', os.getenv('DATABASE_FILE'))
+            os.path.join(dirname, '..',
+                         'data', os.getenv('DATABASE_FILE'))
         )
         self._connection.row_factory = sqlite3.Row
         self.init_database()
@@ -21,7 +25,7 @@ class Database:
                 username TEXT NOT NULL,
                 password TEXT NOT NULL
                 ) ''')
-            
+
             self._connection.commit()
 
             cursor.execute(''' CREATE TABLE IF NOT EXISTS diaries (
@@ -36,10 +40,10 @@ class Database:
             self._connection.commit()
 
             return True
-        except Error as e:
-            print(e)
+        except sqlite3.Error as error:
+            print(error)
             return False
-        
+
     def get_connection(self):
         return self._connection
 
@@ -51,8 +55,10 @@ class Database:
 
     def delete_database(self):
         try:
-            os.remove(os.path.join(os.path.dirname(__file__), '..', 'data', os.getenv('DATABASE_FILE')))
-        except Error as e:
-            print(e)
+            os.remove(os.path.join(dirname,
+                      '..', 'data', os.getenv('DATABASE_FILE')))
+        except sqlite3.Error as error:
+            print(error)
+
 
 db = Database()

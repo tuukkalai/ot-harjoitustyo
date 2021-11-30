@@ -19,3 +19,11 @@ def coverage_report(ctx):
 @task(coverage_report)
 def coverage_ff(ctx):
     ctx.run('firefox ./htmlcov/index.html')
+
+@task
+def lint(ctx):
+    ctx.run('pylint src')
+
+@task
+def format(ctx):
+    ctx.run('autopep8 --in-place --recursive src')
