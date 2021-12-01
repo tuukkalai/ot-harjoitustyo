@@ -14,6 +14,10 @@ def coverage(ctx):
 
 @task(coverage)
 def coverage_report(ctx):
+    ctx.run('coverage report')
+
+@task(coverage)
+def coverage_html(ctx):
     ctx.run('coverage html')
 
 @task(coverage_report)

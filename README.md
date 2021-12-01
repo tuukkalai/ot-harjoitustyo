@@ -6,8 +6,9 @@ PyDiary is part of course work at University of Helsinki.
 
 ## Documentation
 
-- [Requirement specification](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/documentation/requirement_specification.md)
-- [Work hour records](https://github.com/tuukkalai/ot-harjoitustyo/blob/main/documentation/work-hour-records.md)
+- [Requirement specification](./documentation/requirement_specification.md)
+- [Work hour records](./documentation/work-hour-records.md)
+- [Architecture](./documentation/architecture.md)
 
 ## Installation
 
@@ -31,16 +32,16 @@ poetry run invoke start
 poetry run invoke test
 ```
 
-### Create test coverage report
+### Create HTML test coverage report
+
+```sh
+poetry run invoke coverage-html
+```
+
+### Create CLI test coverage report
 
 ```sh
 poetry run invoke coverage-report
-```
-
-### Open test coverage report on Firefox
-
-```sh
-poetry run invoke coverage-ff
 ```
 
 ### Run lint score
@@ -54,3 +55,4 @@ poetry run invoke lint
 ```sh
 poetry run invoke format
 ```
+
