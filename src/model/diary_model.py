@@ -35,3 +35,11 @@ class DiaryModel:
 			content=? 
 			WHERE id=?''', (entry.heading, entry.content, entry.id))
         self._connection.commit()
+
+    def create_entry(self, user) -> None:
+        heading = 'New entry'
+        content = ''
+        cursor = self._connection.cursor()
+        cursor.execute('''INSERT INTO diaries (user_id, heading, content)
+			VALUES (?,?,?)''', (user.id, heading, content))
+        self._connection.commit()

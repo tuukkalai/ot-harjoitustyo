@@ -49,8 +49,9 @@ class UserModel:
             raise UsernameAlreadyExistsError(
                 f'Username `{username}` already exists')
 
-        if password_1 == password_2:
+        if password_1 != password_2:
             raise PasswordMismatchError('Passwords do not match')
+
         if len(password_1) > 2 and len(username) > 2:
             cursor = self._connection.cursor()
             cursor.execute(

@@ -4,12 +4,13 @@ PADDING = 5
 
 
 class DiaryView:
-    def __init__(self, root, user, entries, open_entry) -> None:
+    def __init__(self, root, user, entries, open_entry, new_entry) -> None:
         self._root = root
         self._frame = None
         self._user = user
         self._entries = entries
         self._open_entry = open_entry
+        self._new_entry = new_entry
         self.__initialize()
 
     def pack(self):
@@ -41,6 +42,13 @@ class DiaryView:
                 command=lambda x=entry: self._open_entry(x)
             )
             button.grid(row=i, column=0, sticky=constants.EW)
+
+        button = ttk.Button(
+            self._frame,
+            text='+ new entry',
+            command=lambda x=entry: self._new_entry()
+        )
+        button.grid(row=i+1, column=0, sticky=constants.EW)
 
         self._frame.grid_columnconfigure(0, minsize=400, weight=1)
         self.pack()

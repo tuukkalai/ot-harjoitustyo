@@ -64,7 +64,8 @@ class ViewModel:
                 self.root,
                 self._user_logged_in,
                 entries,
-                self.show_entry_view
+                self.show_entry_view,
+                self.create_entry
             )
             self.__current_view.pack()
         else:
@@ -110,4 +111,8 @@ class ViewModel:
 
     def save_entry(self, entry):
         self.diary_model.save_entry(entry)
+        self.show_diary_view()
+
+    def create_entry(self):
+        self.diary_model.create_entry(self._user_logged_in)
         self.show_diary_view()
