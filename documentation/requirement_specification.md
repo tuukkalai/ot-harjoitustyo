@@ -41,8 +41,8 @@ The application consists of following views.
 
 - [x] User can update the entry text
   - [ ] After update the user is kept on current entry edit screen
-- [ ] User can delete the entry
-  - [ ] After deletion user is returned to list of entries
+- [x] User can delete the entry
+  - [x] After deletion user is returned to list of entries
 - [ ] User can return to list of entries without deleting or updating entry
 
 ## Further development ideas

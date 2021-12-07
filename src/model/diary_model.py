@@ -2,6 +2,10 @@ from entities.entry import Entry
 from database import db
 
 
+class DeleteEntryError(Exception):
+    pass
+
+
 class DiaryModel:
     def __init__(self) -> None:
         self._connection = db.get_connection()
@@ -43,3 +47,13 @@ class DiaryModel:
         cursor.execute('''INSERT INTO diaries (user_id, heading, content)
 			VALUES (?,?,?)''', (user.id, heading, content))
         self._connection.commit()
+
+    def delete_entry(self, user, entry) -> None:
+        user_entries_before = self.get_user_entries(user)
+        cursor = self._connection.cursor()
+        cursor.execute(
+            'DELETE FROM diaries WHERE id=? AND user_id=?', (entry.id, user.id))
+        self._connection.commit()
+        user_entries_after = self.get_user_entries(user)
+        if len(user_entries_before)-1 != len(user_entries_after):
+            raise DeleteEntryError('Error: Entry was already deleted')

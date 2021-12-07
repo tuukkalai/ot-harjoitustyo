@@ -34,7 +34,7 @@ class Database:
                 heading TEXT NOT NULL,
                 content TEXT NOT NULL,
                 categories TEXT,
-                FOREIGN KEY (user_id) REFERENCES users (id)
+                FOREIGN KEY (user_id) REFERENCES users(id)
                 ) ''')
 
             self._connection.commit()

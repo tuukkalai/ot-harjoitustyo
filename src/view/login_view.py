@@ -52,7 +52,6 @@ class LoginView:
             command=lambda: self._create_user()
         )
 
-        # Positioning items to grid
         heading_label.grid(
             row=0,
             column=0,

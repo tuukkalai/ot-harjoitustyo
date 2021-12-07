@@ -38,6 +38,18 @@ poetry run invoke test
 poetry run invoke coverage-html
 ```
 
+#### Create HTML test coverage report and open it with Firefox
+
+```sh
+poetry run invoke coverage-ff
+```
+
+After creating the html report, next shell command is called
+
+```sh
+firefox ./htmlcov/index.html
+```
+
 ### Create CLI test coverage report
 
 ```sh

@@ -8,7 +8,7 @@ from model.user_model import (
     UsernameNotExistsError,
     WrongPasswordError
 )
-from model.diary_model import DiaryModel
+from model.diary_model import DeleteEntryError, DiaryModel
 from view.login_view import LoginView
 from view.create_user_view import CreateUserView
 from view.diary_view import DiaryView
@@ -78,7 +78,8 @@ class ViewModel:
         self.__current_view = EntryView(
             self.root,
             entry,
-            self.save_entry
+            self.save_entry,
+            self.delete_entry
         )
         self.__current_view.pack()
 
@@ -122,3 +123,11 @@ class ViewModel:
     def create_entry(self):
         self.diary_model.create_entry(self._user_logged_in)
         self.show_diary_view()
+
+    def delete_entry(self, entry):
+        try:
+            self.diary_model.delete_entry(self._user_logged_in, entry)
+            self.show_diary_view()
+        except DeleteEntryError:
+            self.show_diary_view()
+            self.__current_view.show_error('Error: Entry was already deleted')

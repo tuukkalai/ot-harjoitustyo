@@ -20,7 +20,7 @@ def coverage_report(ctx):
 def coverage_html(ctx):
     ctx.run('coverage html')
 
-@task(coverage_report)
+@task(coverage_html)
 def coverage_ff(ctx):
     ctx.run('firefox ./htmlcov/index.html')
 
