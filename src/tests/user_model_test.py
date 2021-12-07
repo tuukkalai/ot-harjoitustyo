@@ -44,13 +44,15 @@ class TestUserModel(unittest.TestCase):
         self.assertEqual(username in self.user_model._get_all_users(), True)
         with pytest.raises(UsernameAlreadyExistsError) as Error:
             self.user_model.create_user(username, '1234', '1234')
-        self.assertEqual(str(Error.value), f'Username `{username}` already exists')
+        self.assertEqual(str(Error.value),
+                         f'Username `{username}` already exists')
         created_users = self.user_model._get_all_users()
         self.assertEqual(created_users.count(username), 1)
 
     def test_delete_user(self):
         username = 'toDelete'
-        user_to_be_deleted = self.user_model.create_user(username, '1234', '1234')
+        user_to_be_deleted = self.user_model.create_user(
+            username, '1234', '1234')
         self.assertEqual(username in self.user_model._get_all_users(), True)
         self.user_model.delete_user(user_to_be_deleted)
         created_users = self.user_model._get_all_users()

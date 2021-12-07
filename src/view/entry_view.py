@@ -5,13 +5,14 @@ PADDING = 5
 
 
 class EntryView:
-    def __init__(self, root, entry, save, delete) -> None:
+    def __init__(self, root, entry, save_exit, cancel, delete) -> None:
         self._root = root
         self._frame = None
         self._entry = entry
         self._entry_heading_var = StringVar()
         self._entry_heading_var.set(self._entry._heading)
-        self._save = save
+        self._save_exit = save_exit
+        self._cancel = cancel
         self._delete = delete
         self.__initialize()
 
@@ -49,16 +50,34 @@ class EntryView:
         )
         entry_content_entry.insert('1.0', self._entry._content)
 
-        save_button = ttk.Button(
+        save_exit_button = ttk.Button(
             master=self._frame,
             text='Save and exit',
-            command=lambda: self._save(
+            command=lambda: self._save_exit(
                 Entry(
                     self._entry._id,
                     self._entry_heading_var.get(),
                     entry_content_entry.get('1.0', 'end').strip()
-                )
+                ), True
             )
+        )
+
+        save_button = ttk.Button(
+            master=self._frame,
+            text='Save',
+            command=lambda: self._save_exit(
+                Entry(
+                    self._entry._id,
+                    self._entry_heading_var.get(),
+                    entry_content_entry.get('1.0', 'end').strip()
+                ), False
+            )
+        )
+
+        cancel_button = ttk.Button(
+            master=self._frame,
+            text='Cancel',
+            command=lambda: self._cancel()
         )
 
         delete_button = ttk.Button(
@@ -70,7 +89,6 @@ class EntryView:
         entry_heading_label.grid(
             row=0,
             column=0,
-            columnspan=2,
             sticky=constants.W,
             padx=PADDING,
             pady=PADDING
@@ -79,7 +97,7 @@ class EntryView:
         entry_heading_entry.grid(
             row=0,
             column=1,
-            columnspan=2,
+            columnspan=4,
             sticky=constants.EW,
             padx=PADDING,
             pady=PADDING
@@ -88,7 +106,6 @@ class EntryView:
         entry_content_label.grid(
             row=1,
             column=0,
-            columnspan=2,
             sticky=constants.NW,
             padx=PADDING,
             pady=PADDING
@@ -98,17 +115,23 @@ class EntryView:
             row=1,
             rowspan=6,
             column=1,
-            columnspan=2,
+            columnspan=4,
             sticky=constants.EW,
             padx=PADDING,
             pady=PADDING
         )
 
-        save_button.grid(row=7, column=2, sticky=constants.E,
+        save_exit_button.grid(row=7, column=4, sticky=constants.E,
+                              padx=PADDING, pady=PADDING)
+
+        save_button.grid(row=7, column=3, sticky=constants.E,
                          padx=PADDING, pady=PADDING)
+
+        cancel_button.grid(row=7, column=2, sticky=constants.E,
+                           padx=PADDING, pady=PADDING)
 
         delete_button.grid(row=7, column=1, sticky=constants.E,
                            padx=PADDING, pady=PADDING)
 
-        self._frame.grid_columnconfigure(1, minsize=400, weight=1)
+        self._frame.grid_columnconfigure(1, minsize=200, weight=1)
         self.pack()

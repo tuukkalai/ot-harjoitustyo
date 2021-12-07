@@ -16,6 +16,8 @@
 | 30.11. | 1 | Cleaning the application and repo |
 | 30.11. | 1 | Documenting the architecture |
 | 01.12. | 2 | Create new entry |
-| 07.12. | 3 | User logout, entry deletion |
+| 07.12. | 3 | User logout, entry deletion + saving updates (save without exit, exit without save) |
+| 07.12. | 1 | Updates to tests |
+| 07.12. | 1 | Documentation update |
 |---|---|---|
-| total | 35 |  |
+| total | 37 |  |

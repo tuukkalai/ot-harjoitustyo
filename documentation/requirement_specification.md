@@ -40,10 +40,10 @@ The application consists of following views.
 ### Edit mode
 
 - [x] User can update the entry text
-  - [ ] After update the user is kept on current entry edit screen
+  - [x] After update the user is kept on current entry edit screen
 - [x] User can delete the entry
   - [x] After deletion user is returned to list of entries
-- [ ] User can return to list of entries without deleting or updating entry
+- [x] User can return to list of entries without deleting or updating entry
 
 ## Further development ideas
 

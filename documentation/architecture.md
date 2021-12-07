@@ -43,4 +43,17 @@ UserModel and DiaryModel are responsible to connect SQLite database for retrievi
 
 ### Files
 
-The application storages user information and diary entries in same database, individual tables. [database.py](../src/database.py) initializes the database, if suitable file is not found.
+The application storages user information and diary entries in same database (pydiary.db). User and diary data are stored in individual tables. [database.py](../src/database.py) initializes the database, if suitable file is not found.
+
+## Main functionalities
+
+### Login
+
+Succesful login requires inputting username and password of already created user. After clicking the 'Login' -button, following sequence of events occurs.
+
+![Login sequence](./assets/login_sequence.png)
+
+`ViewModel` injects `login()` function to `LoginView`. Function `login()` is called with inputted variables, username and password. `ViewModel` function `login()` calls `UserModel` function `login()`, that validates username and password combination from database.
+
+- If succesful, `UserModel` returns `User` entity to `ViewModel`. `ViewModel` then renders `DiaryView` with logged in user information
+- If unsuccesful, `UserModel` raises Exception. `ViewModel` then renders `LoginView` with suitable error message

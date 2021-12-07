@@ -79,6 +79,7 @@ class ViewModel:
             self.root,
             entry,
             self.save_entry,
+            self.show_diary_view,
             self.delete_entry
         )
         self.__current_view.pack()
@@ -116,9 +117,10 @@ class ViewModel:
         except PasswordMismatchError:
             self.__current_view.show_error('Passwords do not match')
 
-    def save_entry(self, entry):
+    def save_entry(self, entry, show_diary):
         self.diary_model.save_entry(entry)
-        self.show_diary_view()
+        if show_diary:
+            self.show_diary_view()
 
     def create_entry(self):
         self.diary_model.create_entry(self._user_logged_in)
