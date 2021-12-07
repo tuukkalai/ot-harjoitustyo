@@ -16,5 +16,6 @@
 | 30.11. | 1 | Cleaning the application and repo |
 | 30.11. | 1 | Documenting the architecture |
 | 01.12. | 2 | Create new entry |
+| 07.12. | 1 | User logout |
 |---|---|---|
-| total | 32 |  |
+| total | 33 |  |

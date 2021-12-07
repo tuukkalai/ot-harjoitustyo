@@ -65,7 +65,8 @@ class ViewModel:
                 self._user_logged_in,
                 entries,
                 self.show_entry_view,
-                self.create_entry
+                self.create_entry,
+                self.logout
             )
             self.__current_view.pack()
         else:
@@ -89,6 +90,11 @@ class ViewModel:
             self.__current_view.show_error('Wrong password')
         except UsernameNotExistsError:
             self.__current_view.show_error(f'Username `{username}` not found')
+
+    def logout(self):
+        if self._user_logged_in:
+            self._user_logged_in = None
+            self.show_login_view()
 
     def create_user(self, username, password_1, password_2):
         try:

@@ -55,4 +55,3 @@ poetry run invoke lint
 ```sh
 poetry run invoke format
 ```
-

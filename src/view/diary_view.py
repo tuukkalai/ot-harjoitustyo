@@ -4,13 +4,14 @@ PADDING = 5
 
 
 class DiaryView:
-    def __init__(self, root, user, entries, open_entry, new_entry) -> None:
+    def __init__(self, root, user, entries, open_entry, new_entry, logout) -> None:
         self._root = root
         self._frame = None
         self._user = user
         self._entries = entries
         self._open_entry = open_entry
         self._new_entry = new_entry
+        self._logout = logout
         self.__initialize()
 
     def pack(self):
@@ -22,13 +23,24 @@ class DiaryView:
     def __initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
-        view_heading_label = ttk.Label(
+        heading_label = ttk.Label(
             master=self._frame, text=f'{self._user.username}\'s diary')
 
-        view_heading_label.grid(
+        heading_label.grid(
             row=0,
             column=0,
             sticky=constants.W,
+            padx=PADDING,
+            pady=PADDING
+        )
+
+        logout_button = ttk.Button(
+            master=self._frame, text='Logout', command=lambda : self._logout())
+
+        logout_button.grid(
+            row=0,
+            column=2,
+            sticky=constants.E,
             padx=PADDING,
             pady=PADDING
         )

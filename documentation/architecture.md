@@ -39,7 +39,7 @@ Following class and package structure visualizes the relation:
 
 ## Data storage
 
-UserModel and DiaryModel are responsible to connect SQLite database for retrieving information and storaging data. 
+UserModel and DiaryModel are responsible to connect SQLite database for retrieving information and storaging data.
 
 ### Files
 
