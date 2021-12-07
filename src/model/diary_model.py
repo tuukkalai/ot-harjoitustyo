@@ -22,10 +22,7 @@ class DiaryModel:
 
     def create_first_entry(self, user) -> None:
         heading = 'Welcome'
-        content = '''This is the welcoming content.
-        PyDiary is an application to create Diary entries with various topics.
-        At first it works in simple way, by editing heading and content of the entry.
-        Thank you for using PyDiary.'''
+        content = '''This is the welcoming content.\nPyDiary is an application to create Diary entries with various topics.\nAt first it works in simple way, by editing heading and content of the entry.\nThank you for using PyDiary.'''
         cursor = self._connection.cursor()
         cursor.execute(''' INSERT INTO diaries (user_id, heading, content)
 			VALUES (?,?,?)

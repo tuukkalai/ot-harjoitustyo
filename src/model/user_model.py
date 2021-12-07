@@ -60,3 +60,8 @@ class UserModel:
             return User(cursor.lastrowid, username)
         raise InvalidCredentialsError(
             'Username or password too short, min. 3 characters')
+
+    def delete_user(self, user):
+        cursor = self._connection.cursor()
+        cursor.execute('DELETE FROM users WHERE id=?', (user.id,))
+        self._connection.commit()

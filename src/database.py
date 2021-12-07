@@ -34,8 +34,15 @@ class Database:
                 heading TEXT NOT NULL,
                 content TEXT NOT NULL,
                 categories TEXT,
-                FOREIGN KEY (user_id) REFERENCES users(id)
+                CONSTRAINT fk_users 
+                    FOREIGN KEY (user_id)
+                    REFERENCES users(id)
+                    ON DELETE CASCADE
                 ) ''')
+
+            self._connection.commit()
+
+            cursor.execute('PRAGMA foreign_keys=1')
 
             self._connection.commit()
 
