@@ -19,6 +19,7 @@ class ViewModel:
     def __init__(self):
         self.root = tkinter.Tk()
         self.root.geometry('600x600')
+        self.root.config(background='#555555')
         self.user_model = UserModel()
         self.diary_model = DiaryModel()
         self.login_view = LoginView(
