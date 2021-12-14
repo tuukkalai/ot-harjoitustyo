@@ -29,19 +29,10 @@ class LoginView:
         self._error_label.grid_remove()
 
     def __initialize(self):
-        s = ttk.Style()
-        s.configure('TFrame', background='#555555')
-        s.configure('TLabel', background='#555555', foreground='#F5F5F5')
-        s.configure('TButton', background='#222222', foreground='#F5F5F5', borderwidth=0)
-        s.map('TButton', background=[('active', '!disabled', '#333333')])
-        self._frame = ttk.Frame(master=self._root, padding=10)
+        self._frame = ttk.Frame(master=self._root)
 
         # Login view items
-        heading_label = ttk.Label(
-            master=self._frame,
-            text='Login',
-            font=('Arial', 16)
-        )
+        heading_label = ttk.Label(master=self._frame, text='Login')
 
         username_label = ttk.Label(master=self._frame, text='Username')
         self._username_entry = ttk.Entry(master=self._frame)
@@ -61,19 +52,61 @@ class LoginView:
             command=lambda: self._create_user()
         )
 
-        heading_label.pack(fill=constants.X)
+        heading_label.grid(
+            row=0,
+            column=0,
+            columnspan=2,
+            sticky=constants.W,
+            padx=PADDING,
+            pady=PADDING
+        )
 
-        username_label.pack(fill=constants.X, padx=2, pady=2)
-        
-        self._username_entry.pack(fill=constants.X, ipadx=8, ipady=6, padx=2, pady=6)
+        username_label.grid(
+            row=1,
+            column=0,
+            sticky=constants.E,
+            padx=PADDING,
+            pady=PADDING
+        )
+        self._username_entry.grid(
+            row=1,
+            column=1,
+            sticky=constants.EW,
+            padx=PADDING,
+            pady=PADDING
+        )
 
-        password_label.pack(fill=constants.X, padx=2, pady=2)
+        password_label.grid(
+            row=2,
+            column=0,
+            sticky=constants.E,
+            padx=PADDING,
+            pady=PADDING
+        )
+        self._password_entry.grid(
+            row=2,
+            column=1,
+            sticky=constants.EW,
+            padx=PADDING,
+            pady=PADDING
+        )
 
-        self._password_entry.pack(fill=constants.X, ipadx=6, ipady=6, padx=2, pady=6)
-
-        login_button.pack(fill=constants.X, ipadx=6, ipady=6, padx=2, pady=2)
-
-        create_user_button.pack(fill=constants.X, ipadx=6, ipady=6, padx=2, pady=2)
+        login_button.grid(
+            row=3,
+            column=0,
+            columnspan=2,
+            sticky=constants.EW,
+            padx=PADDING,
+            pady=PADDING
+        )
+        create_user_button.grid(
+            row=4,
+            column=0,
+            columnspan=2,
+            sticky=constants.EW,
+            padx=PADDING,
+            pady=PADDING
+        )
 
         self._error_variable = StringVar(self._frame)
         self._error_label = ttk.Label(
@@ -82,7 +115,14 @@ class LoginView:
             foreground='#dd3333'
         )
 
-        self._error_label.pack()
+        self._error_label.grid(
+            row=6,
+            column=0,
+            columnspan=2,
+            sticky=constants.SW,
+            padx=PADDING,
+            pady=PADDING
+        )
 
         self._frame.grid_columnconfigure(1, minsize=300, weight=1, pad=PADDING)
         self.pack()

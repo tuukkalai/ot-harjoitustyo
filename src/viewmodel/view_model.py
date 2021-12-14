@@ -20,6 +20,11 @@ class ViewModel:
         self.root = tkinter.Tk()
         self.root.geometry('600x600')
         self.root.config(background='#555555')
+        s = tkinter.ttk.Style()
+        s.configure('TFrame', background='#555555')
+        s.configure('TLabel', background='#555555', foreground='#F5F5F5')
+        s.configure('TButton', background='#222222', foreground='#F5F5F5', borderwidth=0)
+        s.map('TButton', background=[('active', '!disabled', '#333333')])
         self.user_model = UserModel()
         self.diary_model = DiaryModel()
         self.login_view = LoginView(
