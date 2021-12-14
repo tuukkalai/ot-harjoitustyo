@@ -67,7 +67,7 @@ class DiaryView:
         new_entry_button = ttk.Button(
             self._frame,
             text='+ new entry',
-            command=lambda x=entry: self._new_entry()
+            command=self._new_entry
         )
 
         new_entry_button.grid(

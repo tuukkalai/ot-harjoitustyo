@@ -5,8 +5,7 @@ from model.user_model import (
     InvalidCredentialsError,
     PasswordMismatchError,
     UsernameAlreadyExistsError,
-    UsernameNotExistsError,
-    WrongPasswordError
+    WrongUsernamePasswordError
 )
 from model.diary_model import DeleteEntryError, DiaryModel
 from view.login_view import LoginView
@@ -18,13 +17,13 @@ from view.entry_view import EntryView
 class ViewModel:
     def __init__(self):
         self.root = tkinter.Tk()
-        self.root.geometry('600x600')
         self.root.config(background='#555555')
-        s = tkinter.ttk.Style()
-        s.configure('TFrame', background='#555555')
-        s.configure('TLabel', background='#555555', foreground='#F5F5F5')
-        s.configure('TButton', background='#222222', foreground='#F5F5F5', borderwidth=0)
-        s.map('TButton', background=[('active', '!disabled', '#333333')])
+        style = tkinter.ttk.Style()
+        style.configure('TFrame', background='#555555')
+        style.configure('TLabel', background='#555555', foreground='#F5F5F5')
+        style.configure('TButton', background='#222222',
+                        foreground='#F5F5F5', borderwidth=0)
+        style.map('TButton', background=[('active', '!disabled', '#333333')])
         self.user_model = UserModel()
         self.diary_model = DiaryModel()
         self.login_view = LoginView(
@@ -94,10 +93,11 @@ class ViewModel:
         try:
             self._user_logged_in = self.user_model.login(username, password)
             self.show_diary_view()
-        except WrongPasswordError:
-            self.__current_view.show_error('Wrong password')
-        except UsernameNotExistsError:
-            self.__current_view.show_error(f'Username `{username}` not found')
+        except WrongUsernamePasswordError:
+            self.__current_view.show_error('Wrong username and/or password')
+        except InvalidCredentialsError:
+            self.__current_view.show_error(
+                'Username or password too short, min. 3 characters')
 
     def logout(self):
         if self._user_logged_in:
