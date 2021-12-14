@@ -6,6 +6,7 @@ PyDiary is part of course work at University of Helsinki.
 
 ## Releases
 
+- [Week 6 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/week6)
 - [Week 5 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/week5)
 
 ## Documentation
