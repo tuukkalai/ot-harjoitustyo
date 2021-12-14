@@ -50,7 +50,7 @@ The application consists of following views.
 After basic functionalities, following list of backlog items can be added following agile development methods
 
 - [x] Adding separate heading input for entries
-- [ ] Adding tags to entries
+- [x] Adding tags to entries
 - [ ] Grouping selected entries to folders/groups
   - [ ] Based on tags
 - [ ] Showing stats of the single entry/group of entries/all entries

@@ -13,11 +13,11 @@ class DiaryModel:
     def get_user_entries(self, user) -> list:
         cursor = self._connection.cursor()
         cursor.execute(
-            '''SELECT id, heading, content FROM diaries WHERE user_id=?''',
+            '''SELECT id, heading, content, categories FROM diaries WHERE user_id=?''',
             (user.id,))
         rows = cursor.fetchall()
         entries = list(map(lambda entry: Entry(
-            entry['id'], entry['heading'], entry['content']), rows))
+            entry['id'], entry['heading'], entry['content'], entry['categories']), rows))
         return entries
 
     def create_first_entry(self, user) -> None:
@@ -36,8 +36,9 @@ Thank you for using PyDiary.'''
         cursor = self._connection.cursor()
         cursor.execute('''UPDATE diaries
 			SET heading=?, 
-			content=? 
-			WHERE id=?''', (entry.heading, entry.content, entry.id))
+			content=?,
+            categories=? 
+			WHERE id=?''', (entry.heading, entry.content, ",".join(entry.categories), entry.id))
         self._connection.commit()
 
     def create_entry(self, user) -> None:

@@ -10,6 +10,7 @@ PyDiary is part of course work at University of Helsinki.
 
 ## Documentation
 
+- [Instructions for use](./documentation/instructions-for-use.md)
 - [Requirement specification](./documentation/requirement_specification.md)
 - [Work hour records](./documentation/work-hour-records.md)
 - [Architecture](./documentation/architecture.md)

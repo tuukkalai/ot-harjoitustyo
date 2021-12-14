@@ -19,5 +19,7 @@
 | 07.12. | 3 | User logout, entry deletion + saving updates (save without exit, exit without save) |
 | 07.12. | 1 | Updates to tests |
 | 07.12. | 1 | Documentation update |
+| 13.12. | 2 | Adding categories to diary entries |
+| 14.12. | 2 | Fixing issues reported in Software Inspection (koodikatselmus) |
 |---|---|---|
-| total | 37 |  |
+| total | 41 |  |

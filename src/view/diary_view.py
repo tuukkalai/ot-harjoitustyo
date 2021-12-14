@@ -14,6 +14,7 @@ class DiaryView:
         self._logout = logout
         self._error_label = None
         self._error_variable = None
+        self._categories_dropdown_var = StringVar()
         self.__initialize()
 
     def destroy(self):
@@ -29,6 +30,17 @@ class DiaryView:
     def hide_error(self):
         self._error_label.grid_remove()
 
+    def _generate_category_list(self) -> list:
+        categories_in_diary = ['Filter by category', 'all']
+        for entry in self._entries:
+            for category in entry.categories:
+                if category not in categories_in_diary:
+                    categories_in_diary.append(category)
+        return categories_in_diary
+
+    def _filter_by_category(self, x):
+        print(x)
+
     def __initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
@@ -38,6 +50,22 @@ class DiaryView:
         heading_label.grid(
             row=0,
             column=0,
+            sticky=constants.W,
+            padx=PADDING,
+            pady=PADDING
+        )
+
+        self._categories_dropdown_var.set(self._generate_category_list()[0])
+        categories_dropdown = ttk.OptionMenu(
+            self._frame,
+            self._categories_dropdown_var,
+            *self._generate_category_list(),
+            command=lambda x: self._filter_by_category(x)
+        )
+
+        categories_dropdown.grid(
+            row=0,
+            column=1,
             sticky=constants.W,
             padx=PADDING,
             pady=PADDING
@@ -66,7 +94,7 @@ class DiaryView:
 
         new_entry_button = ttk.Button(
             self._frame,
-            text='+ new entry',
+            text='+ New entry',
             command=self._new_entry
         )
 

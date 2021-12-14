@@ -10,7 +10,9 @@ class EntryView:
         self._frame = None
         self._entry = entry
         self._entry_heading_var = StringVar()
-        self._entry_heading_var.set(self._entry._heading)
+        self._entry_heading_var.set(self._entry.heading)
+        self._entry_categories_var = StringVar()
+        self._entry_categories_var.set(",".join(self._entry.categories))
         self._save_exit = save_exit
         self._cancel = cancel
         self._delete = delete
@@ -50,6 +52,13 @@ class EntryView:
         )
         entry_content_entry.insert('1.0', self._entry._content)
 
+        entry_categories_label = ttk.Label(
+            master=self._frame, text='Categories')
+        entry_categories_entry = ttk.Entry(
+            master=self._frame,
+            textvariable=self._entry_categories_var
+        )
+
         save_exit_button = ttk.Button(
             master=self._frame,
             text='Save and exit',
@@ -57,7 +66,8 @@ class EntryView:
                 Entry(
                     self._entry._id,
                     self._entry_heading_var.get(),
-                    entry_content_entry.get('1.0', 'end').strip()
+                    entry_content_entry.get('1.0', 'end').strip(),
+                    self._entry_categories_var.get()
                 ), True
             )
         )
@@ -69,7 +79,8 @@ class EntryView:
                 Entry(
                     self._entry._id,
                     self._entry_heading_var.get(),
-                    entry_content_entry.get('1.0', 'end').strip()
+                    entry_content_entry.get('1.0', 'end').strip(),
+                    self._entry_categories_var.get()
                 ), False
             )
         )
@@ -113,7 +124,24 @@ class EntryView:
 
         entry_content_entry.grid(
             row=1,
-            rowspan=6,
+            rowspan=5,
+            column=1,
+            columnspan=4,
+            sticky=constants.EW,
+            padx=PADDING,
+            pady=PADDING
+        )
+
+        entry_categories_label.grid(
+            row=6,
+            column=0,
+            sticky=constants.NW,
+            padx=PADDING,
+            pady=PADDING
+        )
+
+        entry_categories_entry.grid(
+            row=6,
             column=1,
             columnspan=4,
             sticky=constants.EW,
