@@ -15,6 +15,7 @@ class DiaryView:
         self._error_label = None
         self._error_variable = None
         self._categories_dropdown_var = StringVar()
+        self.__filter = 'all'
         self.__initialize()
 
     def destroy(self):
@@ -38,8 +39,22 @@ class DiaryView:
                     categories_in_diary.append(category)
         return categories_in_diary
 
-    def _filter_by_category(self, x):
-        print(x)
+    def _filter_by_category(self, filter_cat):
+        self.__filter = filter_cat
+        self.pack()
+        
+    def __print_entries(self, i):
+        print('printing entries')
+        self._entries_frame = ttk.Frame(master=self._frame)
+        for entry in self._entries:
+            i += 1
+            button = ttk.Button(
+                self._entries_frame,
+                text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
+                command=lambda x=entry: self._open_entry(x)
+            )
+            button.grid(row=i, column=0, columnspan=3, sticky=constants.EW)
+        return self._entries_frame
 
     def __initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -48,12 +63,21 @@ class DiaryView:
             master=self._frame, text=f'{self._user.username}\'s diary')
 
         heading_label.grid(
-            row=0,
+            row=1,
             column=0,
             sticky=constants.W,
             padx=PADDING,
             pady=PADDING
         )
+
+        new_entry_button = ttk.Button(
+            self._frame,
+            text='+ New entry',
+            command=self._new_entry
+        )
+
+        new_entry_button.grid(
+            row=1, column=1, sticky=constants.W)
 
         self._categories_dropdown_var.set(self._generate_category_list()[0])
         categories_dropdown = ttk.OptionMenu(
@@ -64,8 +88,8 @@ class DiaryView:
         )
 
         categories_dropdown.grid(
-            row=0,
-            column=1,
+            row=1,
+            column=2,
             sticky=constants.W,
             padx=PADDING,
             pady=PADDING
@@ -75,31 +99,35 @@ class DiaryView:
             master=self._frame, text='Logout', command=lambda: self._logout())
 
         logout_button.grid(
-            row=0,
-            column=2,
+            row=1,
+            column=3,
             sticky=constants.E,
             padx=PADDING,
             pady=PADDING
         )
 
+
         i = 1
-        for entry in self._entries:
-            i += 1
-            button = ttk.Button(
-                self._frame,
-                text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
-                command=lambda x=entry: self._open_entry(x)
-            )
-            button.grid(row=i, column=0, columnspan=3, sticky=constants.EW)
-
-        new_entry_button = ttk.Button(
-            self._frame,
-            text='+ New entry',
-            command=self._new_entry
+        entries_frame = self.__print_entries(i)
+        entries_frame.grid(
+            row=2,
+            column=0,
+            columnspan=4,
+            sticky=constants.EW,
+            padx=PADDING,
+            pady=PADDING
         )
-
-        new_entry_button.grid(
-            row=i+1, column=0, columnspan=3, sticky=constants.EW)
+        # print(self.__filter)
+        # filtered_entries = filter(lambda entry : self.__filter in entry.categories, self._entries)
+        # print(list(map(lambda entry : entry.heading, filtered_entries)))
+        # for entry in self._entries:
+        #     i += 1
+        #     button = ttk.Button(
+        #         self._frame,
+        #         text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
+        #         command=lambda x=entry: self._open_entry(x)
+        #     )
+        #     button.grid(row=i, column=0, columnspan=3, sticky=constants.EW)
 
         self._error_variable = StringVar(self._frame)
         self._error_label = ttk.Label(
@@ -109,10 +137,10 @@ class DiaryView:
         )
 
         self._error_label.grid(
-            row=i+2,
+            row=0,
             column=0,
-            columnspan=3,
-            sticky=constants.SW,
+            columnspan=4,
+            sticky=constants.EW,
             padx=PADDING,
             pady=PADDING
         )
