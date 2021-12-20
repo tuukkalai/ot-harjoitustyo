@@ -1,4 +1,5 @@
 import tkinter
+import platform
 
 from model.user_model import (
     UserModel,
@@ -21,15 +22,15 @@ class ViewModel:
     def __init__(self):
         """Class constructor that initializes the TkInter frontend and models.
         """
-
         self.root = tkinter.Tk()
-        self.root.config(background='#555555')
-        style = tkinter.ttk.Style()
-        style.configure('TFrame', background='#555555')
-        style.configure('TLabel', background='#555555', foreground='#F5F5F5')
-        style.configure('TButton', background='#222222',
-                        foreground='#F5F5F5', borderwidth=0)
-        style.map('TButton', background=[('active', '!disabled', '#333333')])
+        if platform.system() != "Darwin":
+            self.root.config(background='#555555')
+            style = tkinter.ttk.Style()
+            style.configure('TFrame', background='#555555')
+            style.configure('TLabel', background='#555555', foreground='#F5F5F5')
+            style.configure('TButton', background='#222222',
+                            foreground='#F5F5F5', borderwidth=0)
+            style.map('TButton', background=[('active', '!disabled', '#333333')])
         self.user_model = UserModel()
         self.diary_model = DiaryModel()
         self.login_view = LoginView(
