@@ -22,5 +22,6 @@
 | 13.12. | 2 | Adding categories to diary entries |
 | 14.12. | 2 | Fixing issues reported in Software Inspection (koodikatselmus) |
 | 16.12. | 2 | Updates to category filtering in Diary View |
+| 21.12. | 2 | Finalizing category filterin in Diary View |
 |---|---|---|
-| total | 43 |  |
+| total | 45 |  |

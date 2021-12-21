@@ -16,7 +16,7 @@ class DiaryView:
         self._error_variable = None
         self._categories_dropdown_var = StringVar()
         self.__filter = 'all'
-        self.__initialize()
+        self.__initialize(self.__filter)
 
     def destroy(self):
         self._frame.destroy()
@@ -41,22 +41,10 @@ class DiaryView:
 
     def _filter_by_category(self, filter_cat):
         self.__filter = filter_cat
-        self.pack()
-        
-    def __print_entries(self, i):
-        print('printing entries')
-        self._entries_frame = ttk.Frame(master=self._frame)
-        for entry in self._entries:
-            i += 1
-            button = ttk.Button(
-                self._entries_frame,
-                text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
-                command=lambda x=entry: self._open_entry(x)
-            )
-            button.grid(row=i, column=0, columnspan=3, sticky=constants.EW)
-        return self._entries_frame
+        self.destroy()
+        self.__initialize(self.__filter)
 
-    def __initialize(self):
+    def __initialize(self, cat_filter):
         self._frame = ttk.Frame(master=self._root)
 
         heading_label = ttk.Label(
@@ -106,28 +94,20 @@ class DiaryView:
             pady=PADDING
         )
 
-
         i = 1
-        entries_frame = self.__print_entries(i)
-        entries_frame.grid(
-            row=2,
-            column=0,
-            columnspan=4,
-            sticky=constants.EW,
-            padx=PADDING,
-            pady=PADDING
-        )
-        # print(self.__filter)
-        # filtered_entries = filter(lambda entry : self.__filter in entry.categories, self._entries)
-        # print(list(map(lambda entry : entry.heading, filtered_entries)))
-        # for entry in self._entries:
-        #     i += 1
-        #     button = ttk.Button(
-        #         self._frame,
-        #         text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
-        #         command=lambda x=entry: self._open_entry(x)
-        #     )
-        #     button.grid(row=i, column=0, columnspan=3, sticky=constants.EW)
+
+        filtered_entries = filter(
+            lambda entry: self.__filter in entry.categories, self._entries)
+        if self.__filter == 'all':
+            filtered_entries = self._entries
+        for entry in filtered_entries:
+            i += 1
+            button = ttk.Button(
+                self._frame,
+                text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
+                command=lambda x=entry: self._open_entry(x)
+            )
+            button.grid(row=i, column=0, columnspan=4, sticky=constants.EW)
 
         self._error_variable = StringVar(self._frame)
         self._error_label = ttk.Label(
