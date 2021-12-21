@@ -16,7 +16,7 @@ class DiaryView:
         self._error_variable = None
         self._categories_dropdown_var = StringVar()
         self.__filter = 'all'
-        self.__initialize(self.__filter)
+        self.__initialize()
 
     def destroy(self):
         self._frame.destroy()
@@ -42,9 +42,9 @@ class DiaryView:
     def _filter_by_category(self, filter_cat):
         self.__filter = filter_cat
         self.destroy()
-        self.__initialize(self.__filter)
+        self.__initialize()
 
-    def __initialize(self, cat_filter):
+    def __initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
         heading_label = ttk.Label(
