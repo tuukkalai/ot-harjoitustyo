@@ -1,11 +1,11 @@
 class Entry:
     def __init__(
-        self, 
-        entry_id: int, 
-        heading: str, 
-        content: str, 
+        self,
+        entry_id: int,
+        heading: str,
+        content: str,
         categories: str,
-        created: str, 
+        created: str,
         updated: str
     ) -> None:
         self.__id = entry_id
@@ -28,8 +28,7 @@ class Entry:
 
     @heading.setter
     def heading(self, new_heading: str):
-        if 0 < len(new_heading) < 100:
-            self.__heading = new_heading
+        self.__heading = new_heading
 
     @property
     def content(self):
@@ -37,8 +36,7 @@ class Entry:
 
     @content.setter
     def content(self, new_content: str):
-        if 0 < len(new_content) < 1000:
-            self.__content = new_content
+        self.__content = new_content
 
     @property
     def categories(self) -> list:
@@ -60,5 +58,5 @@ class Entry:
         return self.__updated
 
     def __str__(self) -> str:
-        short_content = self.__content[:30]
+        short_content = self.__content[:50]
         return f'{self.__id}: {self.__heading} - {short_content} {list(self.__categories)}'

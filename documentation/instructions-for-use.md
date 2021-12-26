@@ -41,3 +41,19 @@ Create new user view:
 Insert username and password for corresponding input boxes and click `Create user`.
 
 The application shows an error, if username or password is invalid.
+
+## Edit an Entry
+
+List of entries are visible to logged in user. If no entries are listed, click `+ New entry`. New entry will be added to the bottom of the entries list.
+
+Edit an Entry by clicking it.
+
+![Diary view](./assets/diary_view.png)
+
+Entries consists on heading, content and categories. Heading and content are simple text fields. Categories are separated by comma (`,`).
+
+Dates in Diary View and under categories in Edit View are generated automatically. They inform when the Entry was created and last updated.
+
+![Edit entry view](./assets/entryview_edit.png)
+
+Save entry by clicking `Save` or `Save and exit`. To discard changes in Entry, click `Cancel`. To delete the Entry, click `Delete`.

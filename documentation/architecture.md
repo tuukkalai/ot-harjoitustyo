@@ -57,3 +57,20 @@ Succesful login requires inputting username and password of already created user
 
 - If succesful, `UserModel` returns `User` entity to `ViewModel`. `ViewModel` then renders `DiaryView` with logged in user information
 - If unsuccesful, `UserModel` raises Exception. `ViewModel` then renders `LoginView` with suitable error message
+
+### Create user
+
+Succesful creation of new user requires following conditions:
+
+- username is over 2 characters long
+- username is unique within local database
+- password is over 2 characters long
+- password inputs match
+
+![Create user sequence](./assets/create_user_sequence.png)
+
+`ViewModel` injects `create_user()` function to `CreateUserView`. Function `create_user()` is called with inputted variables, username, password and password again. `ViewModel` function `create_user()` calls `UserModel` function `create_user()`, that validates username and passwords, and creates new user to database.
+`ViewModel` also creates new entry for new user by calling `DiaryModel` function `create_first_entry()`. First entry is also inserted in database for new user.
+
+- If succesful, `UserModel` returns `User` entity to `ViewModel`. `ViewModel` then renders `DiaryView` with logged in user information
+- If unsuccesful, `UserModel` raises Exception. `ViewModel` then renders `CreateUserView` with suitable error message

@@ -1,6 +1,6 @@
+from datetime import datetime
 from entities.entry import Entry
 from database import db
-from datetime import datetime
 
 
 class DeleteEntryError(Exception):
@@ -14,19 +14,19 @@ class DiaryModel:
     def get_user_entries(self, user) -> list:
         cursor = self._connection.cursor()
         cursor.execute(
-            '''SELECT 
-                id, heading, content, categories, created, updated 
-            FROM diaries 
+            '''SELECT
+                id, heading, content, categories, created, updated
+            FROM diaries
             WHERE user_id=?''',
             (user.id,)
         )
         rows = cursor.fetchall()
         entries = list(map(lambda entry: Entry(
-            entry['id'], 
-            entry['heading'], 
-            entry['content'], 
-            entry['categories'], 
-            entry['created'], 
+            entry['id'],
+            entry['heading'],
+            entry['content'],
+            entry['categories'],
+            entry['created'],
             entry['updated']), rows)
         )
         return entries
@@ -53,14 +53,14 @@ Thank you for using PyDiary.'''
             categories=?,
             updated=?
 			WHERE id=?''',
-            (
-                entry.heading,
-                entry.content,
-                ",".join(entry.categories),
-                datetime.now().strftime('%d.%m.%Y %H.%M'),
-                entry.id
-            )
-        )
+                       (
+                           entry.heading,
+                           entry.content,
+                           ",".join(entry.categories),
+                           datetime.now().strftime('%d.%m.%Y %H.%M'),
+                           entry.id
+                       )
+                       )
         self._connection.commit()
 
     def create_entry(self, user) -> None:
@@ -71,7 +71,7 @@ Thank you for using PyDiary.'''
         cursor.execute('''INSERT INTO diaries
             (user_id, heading, content, created, updated)
 			VALUES (?,?,?,?,?)''', (user.id, heading, content, date_now, date_now)
-        )
+                       )
         self._connection.commit()
 
     def delete_entry(self, user, entry) -> None:

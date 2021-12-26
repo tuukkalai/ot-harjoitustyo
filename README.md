@@ -6,6 +6,7 @@ PyDiary is part of course work at University of Helsinki.
 
 ## Releases
 
+- [Week 7 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/week7)
 - [Week 6 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/week6)
 - [Week 5 release](https://github.com/tuukkalai/ot-harjoitustyo/releases/tag/week5)
 
@@ -44,18 +45,6 @@ poetry run invoke test
 poetry run invoke coverage-html
 ```
 
-#### Create HTML test coverage report and open it with Firefox
-
-```sh
-poetry run invoke coverage-ff
-```
-
-After creating the html report, next shell command is called
-
-```sh
-firefox ./htmlcov/index.html
-```
-
 ### Create CLI test coverage report
 
 ```sh
@@ -73,3 +62,19 @@ poetry run invoke lint
 ```sh
 poetry run invoke format
 ```
+
+---
+
+#### Create HTML test coverage report and open it with Firefox
+
+```sh
+poetry run invoke coverage-ff
+```
+
+After creating the html report, next shell command is called
+
+```sh
+firefox ./htmlcov/index.html
+```
+
+---

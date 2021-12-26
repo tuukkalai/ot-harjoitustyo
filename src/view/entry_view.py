@@ -66,9 +66,10 @@ class EntryView:
             textvariable=self._entry_categories_var
         )
 
-        created_updated_label = ttk.Label(master=self._frame, text='Created (updated)')
+        created_updated_label = ttk.Label(
+            master=self._frame, text='Created (updated)')
         created_updated = ttk.Label(
-            master=self._frame, 
+            master=self._frame,
             text=f'{self._entry.created} ({self._entry.updated})'
         )
 
@@ -164,7 +165,6 @@ class EntryView:
             padx=PADDING,
             pady=PADDING
         )
-
 
         save_exit_button.grid(row=8, column=4, sticky=constants.E,
                               padx=PADDING, pady=PADDING)

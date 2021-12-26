@@ -2,13 +2,15 @@
 
 ## Purpose of the application
 
-With the application, user has the ability to log events in a diary. Multiple registered users can use the application, with their own logs in the journal.
+With the application, user has the ability to log events in a diary by adding entries.
+
+Multiple registered users can use the application, with their own logs in the journal.
 
 ## Users
 
-Application is planned to have a _regular user_ role. Later in the development process an _admin user_ can be added. _Admin user_ mentioned in the [Further development ideas](#further-development-ideas).
+Application is used with _regular user_ role.
 
-## User Interface wireframe
+## User Interface
 
 The application consists of following views.
 
@@ -37,29 +39,16 @@ The application consists of following views.
 - [x] User can open an entry to edit mode
 - [x] User can log out
 
+### View entries mode
+
+- [x] Filtering entries based on categories
+
 ### Edit mode
 
+- [x] User can update the entry heading
 - [x] User can update the entry text
   - [x] After update the user is kept on current entry edit screen
 - [x] User can delete the entry
   - [x] After deletion user is returned to list of entries
 - [x] User can return to list of entries without deleting or updating entry
-
-## Further development ideas
-
-After basic functionalities, following list of backlog items can be added following agile development methods
-
-- [x] Adding separate heading input for entries
-- [x] Adding tags (categories) to entries
-- [x] Grouping selected entries to folders/groups - (Adding categories to entries, viewing entries based on categories)
-  - [x] Based on tags (categories)
-- [ ] Showing stats of the single entry/group of entries/all entries
-  - [ ] In separate view
-  - [ ] At the bottom of an entry
-- [ ] Admin user
-  - [ ] View to overall user stats
-  - [ ] View to individual user stats
-- [ ] Different types of entries, that would show stats based on values in the entries
-  - [ ] Food diary
-  - [ ] Fitness diary
-  - [ ] Time tracking diary
+- [x] Adding/removing categories to entries
