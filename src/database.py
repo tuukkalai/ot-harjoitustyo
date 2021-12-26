@@ -34,6 +34,8 @@ class Database:
                 heading TEXT NOT NULL,
                 content TEXT NOT NULL,
                 categories TEXT,
+                created DATETIME,
+                updated DATETIME,
                 CONSTRAINT fk_users 
                     FOREIGN KEY (user_id)
                     REFERENCES users(id)
@@ -59,13 +61,6 @@ class Database:
         cursor.execute('DELETE FROM users')
         cursor.execute('DELETE FROM diaries')
         self._connection.commit()
-
-    def delete_database(self):
-        try:
-            os.remove(os.path.join(dirname,
-                      '..', 'data', os.getenv('DATABASE_FILE')))
-        except sqlite3.Error as error:
-            print(error)
 
 
 db = Database()

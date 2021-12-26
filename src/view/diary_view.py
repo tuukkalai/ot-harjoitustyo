@@ -94,19 +94,23 @@ class DiaryView:
             pady=PADDING
         )
 
-        i = 1
-
         filtered_entries = filter(
             lambda entry: self.__filter in entry.categories, self._entries)
 
         if self.__filter == 'all':
             filtered_entries = self._entries
 
+        i = 1
+
         for entry in filtered_entries:
             i += 1
+            new_line = int(entry.content.find('\n')) + 1
+            content = entry.content[:new_line if 0 < new_line < 55 else 52]
+            if len(entry.content) != len(content):
+                content = content[:-1] + '...'
             button = ttk.Button(
                 self._frame,
-                text=f'{entry._heading}\n{entry._content[:32]+"..." if len(entry._content) > 35 else entry._content}',
+                text=f'{entry.heading}\n{content}\n{entry.created} ({entry.updated})',
                 command=lambda x=entry: self._open_entry(x)
             )
             button.grid(row=i, column=0, columnspan=4, sticky=constants.EW)

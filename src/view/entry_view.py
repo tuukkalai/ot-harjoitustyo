@@ -11,6 +11,7 @@ class EntryView:
         self._entry = entry
         self._entry_heading_var = StringVar()
         self._entry_heading_var.set(self._entry.heading)
+        self._entry_content_entry = None
         self._entry_categories_var = StringVar()
         self._entry_categories_var.set(",".join(self._entry.categories))
         self._save_exit = save_exit
@@ -37,6 +38,12 @@ class EntryView:
         if confirmation:
             self._delete(self._entry)
 
+    def __update_entry(self, entry: Entry, show_diary_view: bool):
+        entry.heading = self._entry_heading_var.get()
+        entry.content = self._entry_content_entry.get('1.0', 'end').strip()
+        entry.categories = self._entry_categories_var.get()
+        self._save_exit(entry, show_diary_view)
+
     def __initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
@@ -47,10 +54,10 @@ class EntryView:
         )
 
         entry_content_label = ttk.Label(master=self._frame, text='Content')
-        entry_content_entry = Text(
+        self._entry_content_entry = Text(
             master=self._frame
         )
-        entry_content_entry.insert('1.0', self._entry._content)
+        self._entry_content_entry.insert('1.0', self._entry.content)
 
         entry_categories_label = ttk.Label(
             master=self._frame, text='Categories')
@@ -59,30 +66,22 @@ class EntryView:
             textvariable=self._entry_categories_var
         )
 
+        created_updated_label = ttk.Label(master=self._frame, text='Created (updated)')
+        created_updated = ttk.Label(
+            master=self._frame, 
+            text=f'{self._entry.created} ({self._entry.updated})'
+        )
+
         save_exit_button = ttk.Button(
             master=self._frame,
             text='Save and exit',
-            command=lambda: self._save_exit(
-                Entry(
-                    self._entry._id,
-                    self._entry_heading_var.get(),
-                    entry_content_entry.get('1.0', 'end').strip(),
-                    self._entry_categories_var.get()
-                ), True
-            )
+            command=lambda: self.__update_entry(self._entry, True)
         )
 
         save_button = ttk.Button(
             master=self._frame,
             text='Save',
-            command=lambda: self._save_exit(
-                Entry(
-                    self._entry._id,
-                    self._entry_heading_var.get(),
-                    entry_content_entry.get('1.0', 'end').strip(),
-                    self._entry_categories_var.get()
-                ), False
-            )
+            command=lambda: self.__update_entry(self._entry, False)
         )
 
         cancel_button = ttk.Button(
@@ -122,7 +121,7 @@ class EntryView:
             pady=PADDING
         )
 
-        entry_content_entry.grid(
+        self._entry_content_entry.grid(
             row=1,
             rowspan=5,
             column=1,
@@ -149,16 +148,34 @@ class EntryView:
             pady=PADDING
         )
 
-        save_exit_button.grid(row=7, column=4, sticky=constants.E,
+        created_updated_label.grid(
+            row=7,
+            column=0,
+            sticky=constants.W,
+            padx=PADDING,
+            pady=PADDING
+        )
+
+        created_updated.grid(
+            row=7,
+            column=1,
+            columnspan=4,
+            sticky=constants.W,
+            padx=PADDING,
+            pady=PADDING
+        )
+
+
+        save_exit_button.grid(row=8, column=4, sticky=constants.E,
                               padx=PADDING, pady=PADDING)
 
-        save_button.grid(row=7, column=3, sticky=constants.E,
+        save_button.grid(row=8, column=3, sticky=constants.E,
                          padx=PADDING, pady=PADDING)
 
-        cancel_button.grid(row=7, column=2, sticky=constants.E,
+        cancel_button.grid(row=8, column=2, sticky=constants.E,
                            padx=PADDING, pady=PADDING)
 
-        delete_button.grid(row=7, column=1, sticky=constants.E,
+        delete_button.grid(row=8, column=1, sticky=constants.E,
                            padx=PADDING, pady=PADDING)
 
         self._frame.grid_columnconfigure(1, minsize=200, weight=1)

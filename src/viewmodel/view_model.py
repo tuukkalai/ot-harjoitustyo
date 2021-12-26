@@ -16,11 +16,13 @@ from view.entry_view import EntryView
 
 
 class ViewModel:
-    """ViewModel class that handles requests to backend (models) and injects values and methods to frontend (views).
+    """ViewModel class
+    Handle requests to backend (models).
+    Inject values and methods to frontend (views).
     """
 
     def __init__(self):
-        """Class constructor that initializes the TkInter frontend and models.
+        """Initialize the TkInter frontend and models.
         """
         self.root = tkinter.Tk()
         if platform.system() != "Darwin":
@@ -33,6 +35,10 @@ class ViewModel:
                             foreground='#F5F5F5', borderwidth=0)
             style.map('TButton', background=[
                       ('active', '!disabled', '#333333')])
+            style.configure('TMenubutton', background='#222222',
+                            foreground='#F5F5F5')
+            style.map('TMenubutton', background=[
+                      ('active', '!disabled', '#333333')])
         self.user_model = UserModel()
         self.diary_model = DiaryModel()
         self.login_view = LoginView(
@@ -44,14 +50,14 @@ class ViewModel:
         self._user_logged_in = None
 
     def run(self):
-        """Adds name for the application and starts the application loop.
+        """Add name for the application and start the application loop.
         """
 
         self.root.title('PyDiary')
         self.root.mainloop()
 
     def hide_current_view(self):
-        """Destroys the view currently in view.
+        """Destroy the view currently in view.
         """
 
         if self.__current_view:
@@ -59,7 +65,7 @@ class ViewModel:
         self.__current_view = None
 
     def show_login_view(self):
-        """Hides the current view and sets LoginView as a current view.
+        """Hide current view and set LoginView as a current view.
         """
 
         self.hide_current_view()
@@ -71,7 +77,7 @@ class ViewModel:
         self.__current_view.pack()
 
     def show_create_user_view(self):
-        """Hides the current view and sets CreateUserView as a current view.
+        """Hide current view and set CreateUserView as a current view.
         """
 
         self.hide_current_view()
@@ -83,7 +89,7 @@ class ViewModel:
         self.__current_view.pack()
 
     def show_diary_view(self):
-        """Hides the current view and sets DiaryView as a current view.
+        """Hide current view and set DiaryView as a current view.
         """
 
         if self._user_logged_in:
@@ -103,7 +109,7 @@ class ViewModel:
             self.__current_view.show_error('No user logged in')
 
     def show_entry_view(self, entry):
-        """Hides the current view and sets EntryView with selected entry as a current view.
+        """Hide current view and set EntryView with selected entry as a current view.
 
         Args:
             entry (Entry): Entry objects that is opened in editable format in EntryView.
@@ -120,7 +126,10 @@ class ViewModel:
         self.__current_view.pack()
 
     def login(self, username, password):
-        """Injected method to LoginView that verifies the inserted user credentials from UserModel. In case of Exception, shows corresponding error message to current view.
+        """Check login credentials from UserModel.
+
+        Injected method to LoginView.
+        In case of Exception, shows corresponding error message to current view.
 
         Args:
             username (str): Name value for User
@@ -137,7 +146,9 @@ class ViewModel:
                 'Username or password too short, min. 3 characters')
 
     def logout(self):
-        """Injected method to DiaryView that logs out current user.
+        """Logout current user.
+
+        Set user_logged_in to None and show LoginView.
         """
 
         if self._user_logged_in:
@@ -145,7 +156,11 @@ class ViewModel:
             self.show_login_view()
 
     def create_user(self, username, password_1, password_2):
-        """Injected method for CreateUserView. create_user sends the inserted username and password values to UserModel, and based on response, sets new user as a current user or shows error message on current view.
+        """Create new user.
+
+        Injected method for CreateUserView.
+        create_user sends the inserted username and password to UserModel.
+        Set new user as a current user or show error message on current view.
 
         Args:
             username (str): Name value for User
@@ -171,7 +186,10 @@ class ViewModel:
             self.__current_view.show_error('Passwords do not match')
 
     def save_entry(self, entry, show_diary):
-        """Injected method to EntryView. Save entry takes the updated Entry and sends it to DiaryModel.
+        """Save entry on database.
+
+        Injected method to EntryView.
+        Send updated Entry to DiaryModel.
 
         Args:
             entry (Entry): Updated Entry object
@@ -183,14 +201,22 @@ class ViewModel:
             self.show_diary_view()
 
     def create_entry(self):
-        """Injected method DiaryView. Calls DiaryModel create_entry method to create new empty method.
+        """Create new entry.
+
+        Injected method DiaryView.
+        Call DiaryModel create_entry method to create new empty entry.
         """
 
         self.diary_model.create_entry(self._user_logged_in)
         self.show_diary_view()
 
     def delete_entry(self, entry):
-        """Injected method to EntryView. Sends Entry object to DiaryModel delete_entry method and switches the view to DiaryView. If error occurs, shows error message on current view.
+        """Delete entry.
+
+        Injected method to EntryView.
+        Send Entry object to DiaryModel delete_entry method.
+        Switch view to DiaryView.
+        If error occurs, show error message on current view.
 
         Args:
             entry (Entry): Entry object

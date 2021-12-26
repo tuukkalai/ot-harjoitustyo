@@ -1,5 +1,6 @@
 from entities.entry import Entry
 from database import db
+from datetime import datetime
 
 
 class DeleteEntryError(Exception):
@@ -13,11 +14,21 @@ class DiaryModel:
     def get_user_entries(self, user) -> list:
         cursor = self._connection.cursor()
         cursor.execute(
-            '''SELECT id, heading, content, categories FROM diaries WHERE user_id=?''',
-            (user.id,))
+            '''SELECT 
+                id, heading, content, categories, created, updated 
+            FROM diaries 
+            WHERE user_id=?''',
+            (user.id,)
+        )
         rows = cursor.fetchall()
         entries = list(map(lambda entry: Entry(
-            entry['id'], entry['heading'], entry['content'], entry['categories']), rows))
+            entry['id'], 
+            entry['heading'], 
+            entry['content'], 
+            entry['categories'], 
+            entry['created'], 
+            entry['updated']), rows)
+        )
         return entries
 
     def create_first_entry(self, user) -> None:
@@ -27,9 +38,11 @@ PyDiary is an application to create Diary entries with various topics.
 At first it works in simple way, by editing heading and content of the entry.
 Thank you for using PyDiary.'''
         cursor = self._connection.cursor()
-        cursor.execute(''' INSERT INTO diaries (user_id, heading, content)
-			VALUES (?,?,?)
-			''', (user.id, heading, content))
+        date_now = datetime.now().strftime('%d.%m.%Y %H.%M')
+        cursor.execute('''INSERT INTO diaries (user_id, heading, content, created, updated)
+			VALUES (?,?,?,?,?)
+			''', (user.id, heading, content, date_now, date_now)
+        )
         self._connection.commit()
 
     def save_entry(self, entry) -> None:
@@ -37,24 +50,37 @@ Thank you for using PyDiary.'''
         cursor.execute('''UPDATE diaries
 			SET heading=?, 
 			content=?,
-            categories=? 
-			WHERE id=?''', (entry.heading, entry.content, ",".join(entry.categories), entry.id))
+            categories=?,
+            updated=?
+			WHERE id=?''',
+            (
+                entry.heading,
+                entry.content,
+                ",".join(entry.categories),
+                datetime.now().strftime('%d.%m.%Y %H.%M'),
+                entry.id
+            )
+        )
         self._connection.commit()
 
     def create_entry(self, user) -> None:
         heading = 'New entry'
         content = ''
+        date_now = datetime.now().strftime('%d.%m.%Y %H.%M')
         cursor = self._connection.cursor()
-        cursor.execute('''INSERT INTO diaries (user_id, heading, content)
-			VALUES (?,?,?)''', (user.id, heading, content))
+        cursor.execute('''INSERT INTO diaries
+            (user_id, heading, content, created, updated)
+			VALUES (?,?,?,?,?)''', (user.id, heading, content, date_now, date_now)
+        )
         self._connection.commit()
 
     def delete_entry(self, user, entry) -> None:
         user_entries_before = self.get_user_entries(user)
         cursor = self._connection.cursor()
         cursor.execute(
-            'DELETE FROM diaries WHERE id=? AND user_id=?', (entry.id, user.id))
+            'DELETE FROM diaries WHERE id=? AND user_id=?', (entry.id, user.id)
+        )
         self._connection.commit()
         user_entries_after = self.get_user_entries(user)
-        if len(user_entries_before)-1 != len(user_entries_after):
+        if len(user_entries_before) - 1 != len(user_entries_after):
             raise DeleteEntryError('Error: Entry was already deleted')
