@@ -98,8 +98,10 @@ class DiaryView:
 
         filtered_entries = filter(
             lambda entry: self.__filter in entry.categories, self._entries)
+
         if self.__filter == 'all':
             filtered_entries = self._entries
+
         for entry in filtered_entries:
             i += 1
             button = ttk.Button(
